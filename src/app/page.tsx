@@ -3,6 +3,8 @@ import GlitchText from "@/components/ui/GlitchText";
 import CyberButton from "@/components/ui/CyberButton";
 import AboutSection from "@/components/AboutSection";
 import ProjectsSection from "@/components/ProjectsSection";
+import SkillsSection from "@/components/SkillsSection";
+import ExperienceSection from "@/components/ExperienceSection";
 import Footer from "@/components/Footer";
 import { ArrowRight, Terminal } from "lucide-react";
 
@@ -60,6 +62,8 @@ export default function Home() {
             </main>
 
             <AboutSection />
+            <SkillsSection />
+            <ExperienceSection />
             <ProjectsSection />
             <Footer />
         </>
