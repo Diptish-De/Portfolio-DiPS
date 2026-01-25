@@ -13,43 +13,57 @@ export default function GlitchText({ text, className, size = "md" }: GlitchTextP
     const sizeClasses = {
         sm: "text-sm",
         md: "text-xl",
-        lg: "text-4xl font-bold",
-        xl: "text-6xl font-black tracking-tighter",
+        lg: "text-4xl md:text-5xl font-bold",
+        xl: "text-6xl md:text-8xl font-black tracking-tighter",
     };
 
     return (
-        <div className={cn("relative inline-block group", className)}>
+        <motion.div
+            className={cn("relative inline-block group cursor-default", className)}
+            whileHover="hover"
+            initial="initial"
+        >
+            {/* Main Text */}
             <motion.span
                 className={cn(
                     "relative z-10 block",
                     sizeClasses[size],
-                    "text-foreground group-hover:text-acid transition-colors duration-200"
+                    "text-foreground transition-colors duration-300"
                 )}
+                variants={{
+                    initial: { letterSpacing: "0em" },
+                    hover: { letterSpacing: "0.05em", color: "#CCFF00" }
+                }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
             >
                 {text}
             </motion.span>
-            <span
-                aria-hidden="true"
+
+            {/* Underline Effect */}
+            <motion.div
+                className="absolute bottom-0 left-0 h-[3px] bg-acid origin-left"
+                variants={{
+                    initial: { scaleX: 0 },
+                    hover: { scaleX: 1 }
+                }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            />
+
+            {/* Subtle glow on hover */}
+            <motion.span
                 className={cn(
-                    "absolute top-0 left-0 -z-10 block opacity-0 group-hover:opacity-100",
+                    "absolute inset-0 -z-10 blur-xl opacity-0",
                     sizeClasses[size],
-                    "text-acid translate-x-[2px] translate-y-[-2px]"
+                    "text-acid"
                 )}
-                style={{ clipPath: "polygon(0 0, 100% 0, 100% 45%, 0 45%)" }}
+                variants={{
+                    initial: { opacity: 0 },
+                    hover: { opacity: 0.3 }
+                }}
+                aria-hidden="true"
             >
                 {text}
-            </span>
-            <span
-                aria-hidden="true"
-                className={cn(
-                    "absolute top-0 left-0 -z-10 block opacity-0 group-hover:opacity-100",
-                    sizeClasses[size],
-                    "text-cyan translate-x-[-2px] translate-y-[2px]"
-                )}
-                style={{ clipPath: "polygon(0 55%, 100% 55%, 100% 100%, 0 100%)" }}
-            >
-                {text}
-            </span>
-        </div>
+            </motion.span>
+        </motion.div>
     );
 }

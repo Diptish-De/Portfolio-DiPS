@@ -13,7 +13,9 @@ export default function Footer() {
                         READY TO <br />
                         <span className="text-transparent" style={{ WebkitTextStroke: "1px var(--color-silver)" }}>COLLABORATE?</span>
                     </h2>
-                    <CyberButton className="mt-8">Initialize_Comms</CyberButton>
+                    <a href="mailto:dediptish10@gmail.com">
+                        <CyberButton className="mt-8">Initialize_Comms</CyberButton>
+                    </a>
                 </div>
 
                 {/* Footer Links grid */}
@@ -21,23 +23,22 @@ export default function Footer() {
                     <div className="space-y-4">
                         <h4 className="text-silver/40">SOCIALS</h4>
                         <ul className="space-y-2 text-silver/80">
-                            <li className="hover:text-acid cursor-pointer transition-colors">GITHUB</li>
-                            <li className="hover:text-acid cursor-pointer transition-colors">LINKEDIN</li>
-                            <li className="hover:text-acid cursor-pointer transition-colors">TWITTER</li>
+                            <li><a href="https://github.com/Diptish-De" target="_blank" rel="noopener noreferrer" className="hover:text-acid transition-colors">GITHUB</a></li>
+                            <li><a href="https://linkedin.com/in/diptish-de" target="_blank" rel="noopener noreferrer" className="hover:text-acid transition-colors">LINKEDIN</a></li>
+                            <li><a href="https://instagram.com/diptish.verse" target="_blank" rel="noopener noreferrer" className="hover:text-acid transition-colors">INSTAGRAM</a></li>
                         </ul>
                     </div>
                     <div className="space-y-4">
-                        <h4 className="text-silver/40">SYSTEM</h4>
+                        <h4 className="text-silver/40">CONTACT</h4>
                         <ul className="space-y-2 text-silver/80">
-                            <li className="hover:text-acid cursor-pointer transition-colors">CHANGELOG</li>
-                            <li className="hover:text-acid cursor-pointer transition-colors">DOCS</li>
-                            <li className="hover:text-acid cursor-pointer transition-colors">STATUS</li>
+                            <li><a href="mailto:dediptish10@gmail.com" className="hover:text-acid transition-colors">EMAIL</a></li>
+                            <li><a href="https://moodrip.com" target="_blank" rel="noopener noreferrer" className="hover:text-acid transition-colors">MOODRIP</a></li>
                         </ul>
                     </div>
                     <div className="space-y-4 col-span-2">
                         <h4 className="text-silver/40">DIGITAL_SIGNATURE</h4>
                         <p className="text-silver/60">
-                            Designed and built in the void. KPR Verse inspired aesthetic.
+                            I build fast, ship often, and help others do the same.
                             <br />© 2024 Diptish De.
                         </p>
                     </div>
@@ -46,7 +47,7 @@ export default function Footer() {
                 {/* Bottom Bar */}
                 <div className="w-full h-px bg-gradient-to-r from-transparent via-silver/20 to-transparent mt-12" />
                 <div className="w-full flex justify-between font-mono text-[10px] text-silver/30">
-                    <span>ID: 808-101-332</span>
+                    <span>ID: DIPS-2024</span>
                     <span>SECURE_CONNECTION</span>
                 </div>
             </div>

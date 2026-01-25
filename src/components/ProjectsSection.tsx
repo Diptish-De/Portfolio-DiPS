@@ -11,32 +11,36 @@ interface Project {
     title: string;
     category: string;
     description: string;
+    link?: string;
 }
 
 const projects: Project[] = [
     {
         id: "01",
-        title: "NEURAL_NET",
-        category: "AI / ARCHITECTURE",
-        description: "Decentralized neural processing unit visualization.",
+        title: "MOODRIP",
+        category: "E-COMMERCE / FASHION",
+        description: "Custom clothing platform for students with premium branding and visuals.",
+        link: "https://moodrip.com",
     },
     {
         id: "02",
-        title: "VOID_MARKET",
-        category: "WEB3 / E-COMMERCE",
-        description: "Dark web inspired marketplace for digital assets.",
+        title: "DROPOUT_HACKS",
+        category: "COMMUNITY / EVENTS",
+        description: "Hackathon platform for the rebellious developer community.",
+        link: "https://github.com/supratim1609/dropout_hacks",
     },
     {
         id: "03",
-        title: "SYNTH_OS",
-        category: "SYSTEM / UI",
-        description: "Web-based operating system with retro-futuristic UI.",
+        title: "PORTFOLIO_DIPS",
+        category: "WEB / PORTFOLIO",
+        description: "This KPR-inspired portfolio with immersive scroll effects.",
+        link: "https://github.com/Diptish-De/Portfolio-DiPS",
     },
     {
         id: "04",
-        title: "DATA_CORE",
-        category: "VISUALIZATION",
-        description: "Real-time big data 3D visualization using WegGL.",
+        title: "VACTRACKER",
+        category: "HEALTH / SYSTEM",
+        description: "Vaccination tracking system for managing health records.",
     },
 ];
 
@@ -66,8 +70,11 @@ export default function ProjectsSection() {
                     </div>
 
                     {projects.map((project) => (
-                        <div
+                        <a
                             key={project.id}
+                            href={project.link || "#"}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="group relative flex-shrink-0 w-[400px] md:w-[600px] h-[500px] bg-black border border-silver/20 flex flex-col justify-between p-8 hover:border-acid/50 transition-colors duration-300"
                         >
                             {/* Card Header */}
@@ -90,7 +97,7 @@ export default function ProjectsSection() {
                             {/* Hover Overlay Effect */}
                             <div className="absolute inset-0 bg-acid/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                             <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-acid opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </div>
+                        </a>
                     ))}
 
                     {/* Outro Card */}

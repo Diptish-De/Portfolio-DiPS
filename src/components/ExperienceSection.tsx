@@ -7,21 +7,27 @@ import GlitchText from "./ui/GlitchText";
 const experience = [
     {
         year: "2024",
-        title: "METAVERSE_ARCHITECT",
-        company: "VOID_LABS",
-        description: "Building decentralized virtual spaces and social protocols.",
+        title: "CO_FOUNDER",
+        company: "MOODRIP",
+        description: "Leading a custom clothing platform focused on student fashion, branding, and premium visuals.",
+    },
+    {
+        year: "2024",
+        title: "EVENT_MANAGER",
+        company: "DROPOUT_HACKS",
+        description: "Organizing and managing technical hackathon events for the developer community.",
     },
     {
         year: "2023",
-        title: "FULL_STACK_DEV",
-        company: "NEURAL_SYSTEMS",
-        description: "Developed AI-driven interfaces for data visualization.",
+        title: "UI/UX_DESIGNER",
+        company: "FREELANCE",
+        description: "Crafting digital experiences and interfaces for web and mobile applications.",
     },
     {
-        year: "2022",
-        title: "FRONTEND_ENGINEER",
-        company: "CYBER_CORP",
-        description: "UI/UX implementation for high-traffic fintech applications.",
+        year: "PRESENT",
+        title: "STUDENT",
+        company: "RCC_INSTITUTE_OF_IT",
+        description: "Pursuing B.Tech while building scalable systems and exploring 3D web design.",
     },
 ];
 
