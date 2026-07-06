@@ -11,17 +11,12 @@ interface Track {
 
 const playlist: Track[] = [
     {
-        title: "LOFI_STUDY_SESSION",
+        title: "NEON_DREAM_01",
         artist: "AUDIO_STREAM // DIPTISH_DE",
-        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-    },
-    {
-        title: "NEON_DREAM_02",
-        artist: "CYBER_BEATS // SYNAPSE",
         url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
     },
     {
-        title: "MATRIX_RAIN_03",
+        title: "MATRIX_RAIN_02",
         artist: "AMPLITUDE // SHIFT",
         url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
     }
