@@ -116,7 +116,7 @@ export default function Home() {
                 {/* Top Left System Info */}
                 <div className="absolute top-8 left-8 flex items-center gap-2 font-mono text-[10px] text-silver/40">
                     <span className="w-1.5 h-1.5 rounded-full bg-acid animate-pulse shadow-[0_0_8px_#D7FF2F]" />
-                    <span>SYS_ONLINE</span>
+                    <span>DiPS_MAINFRAME // SYS_ONLINE</span>
                     <span className="text-acid">::</span>
                     <span>DOSSIER_V2.5</span>
                 </div>

@@ -15,9 +15,16 @@ export default function WhoamiModal({ isOpen, onClose }: WhoamiModalProps) {
         "Initializing secure connection...",
         "Connection established. Access granted to Dossier.",
         "--------------------------------------------------",
-        "NAME             : Diptish De",
+        " ██████╗  ██╗██████╗ ███████╗",
+        " ██╔══██╗ ██║██╔══██╗██╔════╝",
+        " ██║  ██║ ██║██████╔╝███████╗",
+        " ██║  ██║ ██║██╔═══╝ ╚════██║",
+        " ██████╔╝ ██║██║     ███████║",
+        " ╚══════╝  ╚═╝╚═╝     ╚══════╝",
+        "--------------------------------------------------",
+        "CODENAME         : DiPS",
+        "REAL NAME        : Diptish De",
         "OCCUPATION       : Turning ideas into software.",
-        "CURRENT MISSION  : Build products worth remembering.",
         "CURRENT FOCUS    : EXIMARG // DropoutHacks // AI Products",
         "STATUS           : Always Building.",
         "--------------------------------------------------",
@@ -79,10 +86,12 @@ export default function WhoamiModal({ isOpen, onClose }: WhoamiModalProps) {
                         <div 
                             key={idx} 
                             className={
-                                line.startsWith("NAME") || line.startsWith("OCCUPATION") || line.startsWith("CURRENT") || line.startsWith("STATUS")
-                                    ? "text-white"
+                                line.startsWith("CODENAME") || line.startsWith("REAL NAME") || line.startsWith("OCCUPATION") || line.startsWith("CURRENT") || line.startsWith("STATUS")
+                                    ? "text-white font-bold"
                                     : line.startsWith("Connection")
                                     ? "text-acid font-bold"
+                                    : line.includes("█")
+                                    ? "text-acid/90 font-black"
                                     : "text-silver/60"
                             }
                         >

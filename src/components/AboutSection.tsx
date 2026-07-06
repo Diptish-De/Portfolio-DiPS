@@ -159,7 +159,7 @@ export default function AboutSection() {
                         {/* Header Panel */}
                         <div className="flex flex-col gap-2">
                             <span className="text-acid font-mono text-[10px] tracking-[0.3em] font-bold">
-                                [ CLASSIFIED_DOSSIER // DE_DIPTISH ]
+                                [ CLASSIFIED_DOSSIER // AGENT_DiPS ]
                             </span>
                             <h2 className="text-4xl md:text-5xl font-space font-black leading-[0.9] uppercase text-white tracking-tighter">
                                 DIGITAL <span className="text-silver/30">ALCHEMIST</span>
