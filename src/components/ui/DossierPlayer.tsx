@@ -51,6 +51,17 @@ export default function DossierPlayer() {
     };
 
     useEffect(() => {
+        if (!audioRef.current) return;
+        audioRef.current.src = activeTrack.url;
+        audioRef.current.load();
+        if (isPlaying) {
+            audioRef.current.play().then(() => {
+                setIsPlaying(true);
+            }).catch(() => setIsPlaying(false));
+        }
+    }, [currentTrackIdx, activeTrack.url, isPlaying]);
+
+    useEffect(() => {
         const audio = audioRef.current;
         if (!audio) return;
         const handleEnded = () => nextTrack();
