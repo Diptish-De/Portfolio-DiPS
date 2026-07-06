@@ -78,7 +78,7 @@ export default function CurrentlyBuilding() {
     return (
         <>
             {/* Desktop Viewport Sticky Pinned Horizontal Scroll Section */}
-            <div ref={targetRef} className="hidden md:block relative h-[250vh] bg-[#030303] border-t border-silver/10">
+            <div ref={targetRef} className="hidden md:block relative h-[165vh] bg-[#030303] border-t border-silver/10">
                 <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
                     {/* Background Tech Details */}
                     <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
