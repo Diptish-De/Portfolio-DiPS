@@ -52,7 +52,7 @@ export default function SystemEntryOverlay() {
                     className="relative group cursor-pointer px-10 py-5 bg-[#0a0a0a] border border-acid/40 hover:border-acid text-acid hover:text-black font-mono text-sm tracking-[0.25em] uppercase transition-all duration-300 shadow-[0_0_30px_rgba(204,255,0,0.05)] hover:shadow-[0_0_40px_rgba(204,255,0,0.2)] overflow-hidden"
                 >
                     {/* Hover slider background */}
-                    <div className="absolute inset-0 bg-acid translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out -z-10" />
+                    <div className="absolute inset-0 bg-acid translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0" />
                     
                     <span className="flex items-center gap-3 relative z-10 font-bold">
                         <Terminal className="w-4 h-4 animate-pulse" />
