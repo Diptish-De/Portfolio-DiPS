@@ -49,39 +49,53 @@ function CountUp({ end, suffix = "", duration = 1.5 }: { end: number; suffix?: s
     return <span ref={elementRef}>{count}{suffix}</span>;
 }
 
-// Custom Progress Bar Component
-function ProgressBar({ label, subtitle, progressVal }: { label: string; subtitle: string; progressVal: number }) {
-    const [width, setWidth] = useState(0);
+// Highly Creative Segmented Hardware Progress Indicator
+function SegmentedProgress({ label, subtitle, progressVal }: { label: string; subtitle: string; progressVal: number }) {
+    const [activeSegments, setActiveSegments] = useState(0);
     const elementRef = useRef<HTMLDivElement>(null);
+    const totalSegments = 10;
 
     useEffect(() => {
         const handleScroll = () => {
             if (!elementRef.current) return;
             const rect = elementRef.current.getBoundingClientRect();
             const inView = rect.top < window.innerHeight && rect.bottom >= 0;
-            if (inView && width === 0) {
-                setWidth(progressVal);
+            if (inView && activeSegments === 0) {
+                const targetSegments = Math.round((progressVal / 100) * totalSegments);
+                let current = 0;
+                const interval = setInterval(() => {
+                    if (current < targetSegments) {
+                        current++;
+                        setActiveSegments(current);
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, 100);
                 window.removeEventListener("scroll", handleScroll);
             }
         };
         window.addEventListener("scroll", handleScroll);
         handleScroll();
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [progressVal, width]);
-
-    const totalBlocks = 10;
-    const filled = Math.round((width / 100) * totalBlocks);
-    const empty = totalBlocks - filled;
+    }, [progressVal, activeSegments]);
 
     return (
-        <div ref={elementRef} className="space-y-1 select-none">
-            <div className="flex justify-between font-mono text-[9px] text-silver/40 tracking-wider">
+        <div ref={elementRef} className="space-y-1.5 select-none font-mono">
+            <div className="flex justify-between text-[9px] text-silver/40 tracking-wider">
                 <span>{label}</span>
                 <span>{subtitle}</span>
             </div>
-            <div className="font-mono text-xs tracking-tighter">
-                <span className="text-acid">{"█".repeat(filled)}</span>
-                <span className="text-silver/10">{"░".repeat(empty)}</span>
+            <div className="flex gap-1.5">
+                {Array.from({ length: totalSegments }).map((_, i) => (
+                    <div
+                        key={i}
+                        className={`h-1.5 flex-1 transition-all duration-300 ${
+                            i < activeSegments
+                                ? "bg-acid shadow-[0_0_8px_#D7FF2F]"
+                                : "bg-white/5"
+                        }`}
+                    />
+                ))}
             </div>
         </div>
     );
@@ -107,87 +121,117 @@ export default function AboutSection() {
         }
     };
 
+    // Editor-style line numbers array
+    const lineNumbers = Array.from({ length: 22 }, (_, i) => String(i + 1).padStart(2, "0"));
+
     return (
         <section ref={containerRef} className="relative min-h-screen flex items-center justify-center py-32 overflow-hidden bg-background">
-            <div className="container px-4 md:px-6 relative z-10 flex flex-col md:flex-row items-center gap-16 max-w-6xl mx-auto">
+            <div className="container px-4 md:px-6 relative z-10 flex flex-col md:flex-row items-stretch gap-16 max-w-6xl mx-auto">
 
-                {/* Text Side */}
-                <motion.div style={{ y: y1, opacity }} className="flex-1 space-y-8">
-                    <div className="flex flex-col gap-2">
-                        <span className="text-acid font-mono text-sm tracking-widest">[ DOSSIER_LORE ]</span>
-                        <h2 className="text-4xl md:text-6xl font-space font-black leading-[0.9] uppercase text-white">
-                            DIGITAL <br />
-                            <span className="text-silver/30">ALCHEMIST</span>
-                        </h2>
+                {/* Left Side: Creative Editor Dossier Layout */}
+                <motion.div style={{ y: y1, opacity }} className="flex-1 flex gap-6 relative">
+                    
+                    {/* Line Numbers Gutter (Highly creative, editor-like theme) */}
+                    <div className="flex flex-col text-right font-mono text-[10px] text-silver/20 select-none space-y-4 pt-1 border-r border-silver/5 pr-4">
+                        {lineNumbers.map(num => (
+                            <span key={num} className={num === "02" || num === "08" || num === "15" ? "text-acid/40" : ""}>
+                                {num}
+                            </span>
+                        ))}
                     </div>
 
-                    {/* Terminal philosophy.sys file */}
-                    <div className="p-6 border border-silver/10 bg-black/40 backdrop-blur-sm font-mono text-xs space-y-4 max-w-md select-text">
-                        <div className="text-acid font-bold flex items-center justify-between">
-                            <span>philosophy.sys</span>
-                            <span className="text-silver/20 text-[9px]">READ_ONLY</span>
+                    {/* Content Column */}
+                    <div className="flex-1 space-y-8">
+                        {/* Header Panel */}
+                        <div className="flex flex-col gap-2">
+                            <span className="text-acid font-mono text-[10px] tracking-[0.3em] font-bold">
+                                [ CLASSIFIED_DOSSIER // DE_DIPTISH ]
+                            </span>
+                            <h2 className="text-4xl md:text-5xl font-space font-black leading-[0.9] uppercase text-white tracking-tighter">
+                                DIGITAL <span className="text-silver/30">ALCHEMIST</span>
+                            </h2>
                         </div>
-                        <div className="text-silver/20">----------------------------------</div>
-                        <div className="space-y-3 text-silver/80 leading-relaxed">
-                            <p>Design earns attention.</p>
-                            <p>Engineering earns trust.</p>
-                            <p>Shipping earns experience.</p>
-                            <p className="text-acid">Repeat.</p>
-                        </div>
-                        <div className="text-silver/20">----------------------------------</div>
-                    </div>
 
-                    {/* Stats Widget (Animated progress bars) */}
-                    <div className="p-6 border border-silver/10 bg-black/40 backdrop-blur-sm max-w-md space-y-5">
-                        <div className="font-mono text-[10px] text-acid font-bold tracking-widest">
-                            SYSTEM_STATUS
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <ProgressBar label="BUILDING" subtitle="EXIMARG" progressVal={100} />
-                            <ProgressBar label="HOSTING" subtitle="DROPOUTHACKS" progressVal={80} />
-                            <ProgressBar label="EXPERIMENTING" subtitle="AI WORKFLOWS" progressVal={70} />
-                            <ProgressBar label="LEARNING" subtitle="PRODUCT THINKING" progressVal={90} />
-                        </div>
-                        <ProgressBar label="SLEEP" subtitle="WORK IN PROGRESS" progressVal={20} />
-                    </div>
-
-                    {/* Numeric stats with count-up */}
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 max-w-md pt-2 border-t border-silver/10 font-mono">
-                        <div>
-                            <div className="text-xs text-silver/40">Projects Built</div>
-                            <div className="text-2xl font-bold text-acid">
-                                <CountUp end={11} suffix="+" />
+                        {/* Creative Interactive Terminal File */}
+                        <div className="border border-silver/10 bg-[#070707] font-mono text-xs overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                            {/* Terminal Tab Bar */}
+                            <div className="flex justify-between items-center bg-black/60 px-4 py-2 border-b border-silver/10">
+                                <div className="flex items-center gap-1.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-acid" />
+                                    <span className="text-silver/60 text-[9px] tracking-wider uppercase font-bold">philosophy.sys</span>
+                                </div>
+                                <span className="text-silver/30 text-[9px]">SZ: 2.14KB</span>
+                            </div>
+                            
+                            {/* Terminal Content Panel */}
+                            <div className="p-6 space-y-4 select-text bg-[#090909]/40 relative">
+                                <div className="absolute top-2 right-2 text-[9px] text-silver/10 font-bold pointer-events-none select-none">
+                                    SECTOR_0x4F
+                                </div>
+                                <div className="space-y-3 text-silver/70 leading-relaxed pl-4 border-l border-acid/20">
+                                    <p className="hover:text-white transition-colors duration-300">
+                                        <span className="text-acid/40 mr-2">&gt;</span>
+                                        Design earns <span className="text-white font-bold">attention.</span>
+                                    </p>
+                                    <p className="hover:text-white transition-colors duration-300">
+                                        <span className="text-acid/40 mr-2">&gt;</span>
+                                        Engineering earns <span className="text-white font-bold">trust.</span>
+                                    </p>
+                                    <p className="hover:text-white transition-colors duration-300">
+                                        <span className="text-acid/40 mr-2">&gt;</span>
+                                        Shipping earns <span className="text-white font-bold">experience.</span>
+                                    </p>
+                                    <p className="text-acid hover:text-white transition-colors duration-300">
+                                        <span className="text-acid/40 mr-2">&gt;</span>
+                                        Repeat.
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <div className="text-xs text-silver/40">Hackathons</div>
-                            <div className="text-2xl font-bold text-white">
-                                <CountUp end={5} suffix="+" />
-                            </div>
-                        </div>
-                        <div>
-                            <div className="text-xs text-silver/40">Design Exp</div>
-                            <div className="text-2xl font-bold text-white">
-                                <CountUp end={7} suffix=" Yrs" />
-                            </div>
-                        </div>
-                        <div>
-                            <div className="text-xs text-silver/40">Products Shipped</div>
-                            <div className="text-sm font-bold text-acid mt-1">GROWING...</div>
-                        </div>
-                        <div>
-                            <div className="text-xs text-silver/40">Ideas Killed</div>
-                            <div className="text-2xl font-bold text-white">∞</div>
-                        </div>
-                    </div>
 
-                    <div onClick={scrollToDossier} className="pt-4">
-                        <CyberButton variant="outline">ENTER DOSSIER →</CyberButton>
+                        {/* Segmented Hardware Diagnostic Bars */}
+                        <div className="p-6 border border-silver/10 bg-[#070707] space-y-5 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                            <div className="flex justify-between items-center font-mono text-[9px] text-acid font-bold tracking-widest border-b border-silver/5 pb-2">
+                                <span>SYSTEM_DIAGNOSTICS</span>
+                                <span className="text-silver/30">MONITOR: ACTIVE</span>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
+                                <SegmentedProgress label="BUILDING" subtitle="EXIMARG" progressVal={100} />
+                                <SegmentedProgress label="SCROLLING" subtitle="BLUEBLOOD" progressVal={90} />
+                                <SegmentedProgress label="HOSTING" subtitle="DROPOUTHACKS" progressVal={80} />
+                                <SegmentedProgress label="LEARNING" subtitle="PRODUCT THINKING" progressVal={90} />
+                            </div>
+                            <SegmentedProgress label="SLEEP" subtitle="WORK IN PROGRESS" progressVal={20} />
+                        </div>
+
+                        {/* Creative Hardware Registers Stats Grid */}
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 font-mono text-xs select-none">
+                            {[
+                                { reg: "REG_00", label: "Projects Built", val: <CountUp end={11} suffix="+" /> },
+                                { reg: "REG_01", label: "Hackathons", val: <CountUp end={5} suffix="+" /> },
+                                { reg: "REG_02", label: "Design Exp", val: <CountUp end={7} suffix=" Yrs" /> },
+                                { reg: "REG_03", label: "Shipped", val: <span className="text-acid text-[10px] font-bold">GROWING</span> },
+                                { reg: "REG_04", label: "Killed Ideas", val: "∞" }
+                            ].map((item, idx) => (
+                                <div key={idx} className="p-3 border border-silver/5 bg-black/20 hover:border-acid/20 transition-all duration-300 flex flex-col justify-between h-20">
+                                    <div className="flex justify-between text-[8px] text-silver/20">
+                                        <span>{item.reg}</span>
+                                        <span>OK</span>
+                                    </div>
+                                    <div className="text-[10px] text-silver/50 tracking-tight">{item.label}</div>
+                                    <div className="text-base font-bold text-white group-hover:text-acid">{item.val}</div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div onClick={scrollToDossier} className="pt-2">
+                            <CyberButton variant="outline">ENTER DOSSIER →</CyberButton>
+                        </div>
                     </div>
                 </motion.div>
 
                 {/* Visual Side */}
-                <motion.div style={{ y: y2, opacity }} className="flex-1 relative aspect-square w-full max-w-md">
+                <motion.div style={{ y: y2, opacity }} className="flex-1 relative aspect-square w-full max-w-md self-center">
                     {/* Social Icons + Live Label */}
                     <div className="absolute -top-20 left-0 z-10 flex flex-col md:flex-row gap-4 md:items-center">
                         <div className="flex gap-4">
