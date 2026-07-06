@@ -47,7 +47,7 @@ export default function CaffeineMonitor() {
     }, []);
 
     return (
-        <div className="fixed top-24 right-8 z-[150] font-mono select-none">
+        <div className="fixed bottom-20 left-10 z-[150] font-mono select-none">
             <div 
                 onClick={triggerCaffeineBoost}
                 className={`flex items-center gap-4 bg-[#0A0A0A] border px-4 py-3 shadow-[0_0_20px_rgba(0,0,0,0.8)] transition-all duration-300 cursor-pointer ${
