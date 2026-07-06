@@ -221,9 +221,9 @@ export default function AboutSection() {
                         {/* Creative Hardware Registers Stats Grid */}
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 font-mono text-xs select-none">
                             {[
-                                { reg: "REG_00", label: "Projects Built", val: <CountUp end={11} suffix="+" /> },
+                                { reg: "REG_00", label: "Projects Built", val: <CountUp end={20} suffix="+" /> },
                                 { reg: "REG_01", label: "Hackathons", val: <CountUp end={5} suffix="+" /> },
-                                { reg: "REG_02", label: "Design Exp", val: <CountUp end={7} suffix=" Yrs" /> },
+                                { reg: "REG_02", label: "Design Exp", val: <CountUp end={7} suffix="+ Yrs" /> },
                                 { reg: "REG_03", label: "Shipped", val: <span className="text-acid text-[10px] font-bold">GROWING</span> },
                                 { reg: "REG_04", label: "Killed Ideas", val: "∞" }
                             ].map((item, idx) => (
