@@ -65,7 +65,7 @@ export default function CaffeineMonitor() {
             />
 
             {/* Float container with high z-index to stay fully lit on top of the black mask */}
-            <div className="fixed top-16 left-8 z-[190] font-mono select-none">
+            <div className="fixed top-16 left-4 sm:left-8 z-[190] font-mono select-none hidden sm:block">
                 <div 
                     onClick={triggerCaffeineBoost}
                     className={`flex items-center gap-4 bg-[#0A0A0A] border px-4 py-3 shadow-[0_0_20px_rgba(0,0,0,0.8)] transition-all duration-300 cursor-pointer ${

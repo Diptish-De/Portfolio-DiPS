@@ -112,11 +112,11 @@ export default function Home() {
             <LiquidDistortion />
 
             {/* Main Interactive Dossier Container */}
-            <main className="relative min-h-screen flex flex-col items-center justify-center p-8 sm:p-20 overflow-hidden liquid-hero">
+            <main className="relative min-h-screen flex flex-col items-center justify-center p-4 sm:p-8 md:p-20 overflow-hidden liquid-hero">
                 <GravityStrings />
 
                 {/* Top Left System Info */}
-                <div className="absolute top-8 left-8 flex items-center gap-2 font-mono text-[10px] text-silver/40">
+                <div className="absolute top-4 left-4 sm:top-8 sm:left-8 hidden sm:flex items-center gap-2 font-mono text-[10px] text-silver/40">
                     <span className="w-1.5 h-1.5 rounded-full bg-acid animate-pulse shadow-[0_0_8px_#D7FF2F]" />
                     <span>DiPS_MAINFRAME // SYS_ONLINE</span>
                     <span className="text-acid">::</span>
@@ -124,14 +124,14 @@ export default function Home() {
                 </div>
 
                 {/* Main Interactive Dossier Grid */}
-                <div className="z-10 w-full max-w-7xl px-4 flex flex-col md:grid md:grid-cols-12 md:gap-8 md:items-center py-6 relative">
+                <div className="z-10 w-full max-w-7xl px-2 sm:px-4 flex flex-col md:grid md:grid-cols-12 md:gap-8 md:items-center py-4 sm:py-6 relative">
                     
                     {/* Left Lore Block (Column 1 - md:col-span-3) */}
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="md:col-span-3 font-mono text-xs sm:text-sm text-silver/60 text-left md:text-right border-l-2 md:border-l-0 md:border-r-2 border-acid/20 p-4 md:py-0 md:pl-0 md:pr-6 space-y-2 select-text"
+                        className="md:col-span-3 font-mono text-[10px] sm:text-xs md:text-sm text-silver/60 text-left md:text-right border-l-2 md:border-l-0 md:border-r-2 border-acid/20 p-3 sm:p-4 md:py-0 md:pl-0 md:pr-6 space-y-2 select-text"
                     >
                         <span className="text-acid font-bold text-[9px] tracking-wider block mb-1">
                             // CORE_STATEMENT
@@ -142,12 +142,12 @@ export default function Home() {
                     </motion.div>
 
                     {/* Center Title Block (Column 2 - md:col-span-6) */}
-                    <div className="md:col-span-6 flex flex-col items-center text-center gap-6 py-6 md:py-0">
+                    <div className="md:col-span-6 flex flex-col items-center text-center gap-4 sm:gap-6 py-4 sm:py-6 md:py-0">
                         <div className="space-y-6 w-full">
                             <h2 className="font-mono text-silver/40 text-[10px] tracking-[0.3em] uppercase">
                                 PROFILE // ONLINE
                             </h2>
-                            <div className="flex flex-col gap-6 leading-[0.85] text-center items-center w-full">
+                            <div className="flex flex-col gap-3 sm:gap-6 leading-[0.85] text-center items-center w-full">
                                 <ExplodingText text="DIPTISH" size="xl" className="font-space tracking-tighter" />
                                 
                                 {/* Rotating Typewriter Title Element in between DIPTISH and DE */}
@@ -160,7 +160,7 @@ export default function Home() {
 
                             {/* Highly Prominent Console Prompt Message */}
                             <div className="pt-6 pb-2 flex flex-col items-center select-none">
-                                <span className="inline-flex items-center gap-2 px-4 py-2 bg-acid/15 border border-acid/40 text-acid text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] shadow-[0_0_25px_rgba(215,255,47,0.25)] [text-shadow:0_0_8px_rgba(215,255,47,0.7)] animate-pulse">
+                                <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-acid/15 border border-acid/40 text-acid text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.2em] shadow-[0_0_25px_rgba(215,255,47,0.25)] [text-shadow:0_0_8px_rgba(215,255,47,0.7)] animate-pulse text-center leading-relaxed">
                                     <span className="w-1.5 h-1.5 rounded-full bg-acid [box-shadow:0_0_10px_#D7FF2F] shrink-0" />
                                     Console Alert: Type &quot;whoami&quot; anywhere to launch secure shell terminal
                                 </span>
@@ -173,7 +173,7 @@ export default function Home() {
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="md:col-span-3 font-mono text-xs sm:text-sm text-silver/60 text-left border-l-2 border-acid/20 p-4 md:py-0 md:pr-0 md:pl-6 space-y-2 select-text"
+                        className="md:col-span-3 font-mono text-[10px] sm:text-xs md:text-sm text-silver/60 text-left border-l-2 border-acid/20 p-3 sm:p-4 md:py-0 md:pr-0 md:pl-6 space-y-2 select-text"
                     >
                         <span className="text-acid font-bold text-[9px] tracking-wider block mb-1">
                             // ACTIVE_MISSIONS
@@ -196,10 +196,10 @@ export default function Home() {
                 </div>
 
                 {/* Bottom Left / Right Details */}
-                <div className="absolute bottom-10 right-10 font-mono text-[10px] text-silver/30 flex flex-col items-end gap-1 select-none">
-                    <span>LOC: 22.5726° N, 88.3639° E</span>
-                    <span>MEM: 62% ACCESS_OK</span>
-                    <span className="mt-4 animate-bounce text-acid">SCROLL TO ACCESS_RECORDS ▼</span>
+                <div className="absolute bottom-6 right-4 sm:bottom-10 sm:right-10 font-mono text-[9px] sm:text-[10px] text-silver/30 flex flex-col items-end gap-1 select-none">
+                    <span className="hidden sm:inline">LOC: 22.5726° N, 88.3639° E</span>
+                    <span className="hidden sm:inline">MEM: 62% ACCESS_OK</span>
+                    <span className="mt-2 sm:mt-4 animate-bounce text-acid">SCROLL ▼</span>
                 </div>
             </main>
 

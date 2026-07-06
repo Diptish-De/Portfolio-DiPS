@@ -148,13 +148,13 @@ export default function AboutSection() {
 
     return (
         <section ref={containerRef} className="relative min-h-screen flex items-center justify-center py-32 overflow-hidden bg-background">
-            <div className="container px-4 md:px-6 relative z-10 flex flex-col md:flex-row items-stretch gap-16 max-w-6xl mx-auto">
+            <div className="container px-4 md:px-6 relative z-10 flex flex-col md:flex-row items-stretch gap-8 md:gap-16 max-w-6xl mx-auto">
 
                 {/* Left Side: Creative Editor Dossier Layout */}
                 <motion.div style={{ y: y1, opacity }} className="flex-1 flex gap-6 relative">
                     
                     {/* Line Numbers Gutter (Highly creative, editor-like theme) */}
-                    <div className="flex flex-col text-right font-mono text-[10px] text-silver/20 select-none space-y-4 pt-1 border-r border-silver/5 pr-4">
+                    <div className="hidden md:flex flex-col text-right font-mono text-[10px] text-silver/20 select-none space-y-4 pt-1 border-r border-silver/5 pr-4">
                         {lineNumbers.map(num => (
                             <span key={num} className={num === "02" || num === "08" || num === "15" ? "text-acid/40" : ""}>
                                 {num}
@@ -163,13 +163,13 @@ export default function AboutSection() {
                     </div>
 
                     {/* Content Column */}
-                    <div className="flex-1 space-y-8">
+                    <div className="flex-1 space-y-6 sm:space-y-8">
                         {/* Header Panel */}
                         <div className="flex flex-col gap-2">
                             <span className="text-acid font-mono text-[10px] tracking-[0.3em] font-bold">
                                 [ CLASSIFIED_DOSSIER // AGENT_DiPS ]
                             </span>
-                            <h2 className="text-4xl md:text-5xl font-space font-black leading-[0.9] uppercase text-white tracking-tighter">
+                            <h2 className="text-2xl sm:text-4xl md:text-5xl font-space font-black leading-[0.9] uppercase text-white tracking-tighter">
                                 DIGITAL <span className="text-silver/30">ALCHEMIST</span>
                             </h2>
                         </div>
@@ -217,7 +217,7 @@ export default function AboutSection() {
                                 <span>SYSTEM_DIAGNOSTICS</span>
                                 <span className="text-silver/30">MONITOR: ACTIVE</span>
                             </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
+                            <div className="grid grid-cols-1 gap-x-8 gap-y-4 sm:gap-y-5">
                                 <MinimalProgressBar label="BUILDING" subtitle="EXIMARG" progressVal={31} />
                                 <MinimalProgressBar label="SCROLLING" subtitle="BLUEBLOOD" progressVal={88} />
                                 <MinimalProgressBar label="HOSTING" subtitle="DROPOUTHACKS" progressVal={80} />
@@ -235,7 +235,7 @@ export default function AboutSection() {
                                 { reg: "REG_03", label: "Shipped", val: <span className="text-acid text-[10px] font-bold">GROWING</span> },
                                 { reg: "REG_04", label: "Killed Ideas", val: "∞" }
                             ].map((item, idx) => (
-                                <div key={idx} className="p-3 border border-silver/5 bg-black/20 hover:border-acid/20 transition-all duration-300 flex flex-col justify-between h-20">
+                                <div key={idx} className="p-3 sm:p-3 border border-silver/5 bg-black/20 hover:border-acid/20 transition-all duration-300 flex flex-col justify-between h-auto min-h-[70px] sm:h-20">
                                     <div className="flex justify-between text-[8px] text-silver/20">
                                         <span>{item.reg}</span>
                                         <span>OK</span>
@@ -253,7 +253,7 @@ export default function AboutSection() {
                 </motion.div>
 
                 {/* Visual Side */}
-                <motion.div style={{ y: y2, opacity }} className="flex-1 relative aspect-square w-full max-w-md self-center">
+                <motion.div style={{ y: y2, opacity }} className="flex-1 relative aspect-square w-full max-w-sm sm:max-w-md self-center">
                     {/* Social Icons + Live Label */}
                     <div className="absolute -top-20 left-0 z-10 flex flex-col md:flex-row gap-4 md:items-center">
                         <div className="flex gap-4">

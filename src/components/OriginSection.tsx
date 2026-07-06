@@ -42,12 +42,12 @@ export default function OriginSection() {
     const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
     return (
-        <section ref={containerRef} className="relative py-32 bg-[#050505] overflow-hidden">
+        <section ref={containerRef} className="relative py-16 sm:py-32 bg-[#050505] overflow-hidden">
             <div className="container mx-auto px-6 max-w-4xl relative">
                 {/* Header */}
-                <div className="mb-24 flex flex-col gap-2 md:items-center md:text-center">
+                <div className="mb-12 sm:mb-24 flex flex-col gap-2 md:items-center md:text-center">
                     <span className="text-acid font-mono text-xs tracking-[0.3em]">[ DOSSIER_ORIGIN ]</span>
-                    <h2 className="text-4xl md:text-5xl font-space font-black tracking-tight uppercase text-white">
+                    <h2 className="text-2xl sm:text-4xl md:text-5xl font-space font-black tracking-tight uppercase text-white">
                         THE ORIGIN STORY
                     </h2>
                 </div>
@@ -61,7 +61,7 @@ export default function OriginSection() {
                 </div>
 
                 {/* Timeline Grid */}
-                <div className="space-y-24 relative z-10">
+                <div className="space-y-12 sm:space-y-24 relative z-10">
                     {steps.map((step, idx) => {
                         const isEven = idx % 2 === 0;
                         return (
@@ -76,7 +76,7 @@ export default function OriginSection() {
 
                                 {/* Side Panel Content */}
                                 <div className="flex-1 w-full pl-6 md:pl-0 md:text-left">
-                                    <div className={`p-8 bg-[#0a0a0a] border border-silver/10 hover:border-acid/30 transition-colors duration-500 max-w-md ${
+                                    <div className={`p-5 sm:p-8 bg-[#0a0a0a] border border-silver/10 hover:border-acid/30 transition-colors duration-500 max-w-md ${
                                         isEven ? "md:ml-auto md:text-right" : "md:mr-auto"
                                     }`}>
                                         <span className="font-mono text-acid text-xs tracking-wider block mb-2">{step.phase}</span>

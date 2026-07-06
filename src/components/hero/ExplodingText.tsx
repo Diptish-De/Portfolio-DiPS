@@ -12,12 +12,17 @@ interface ExplodingTextProps {
 export default function ExplodingText({ text, className, size = "md" }: ExplodingTextProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    // Font size mapping
-    const fontSizeMap = {
-        sm: 40,
-        md: 60,
-        lg: 80,
-        xl: 120
+    // Font size mapping - responsive based on viewport
+    const getResponsiveFontSize = (sizeKey: "sm" | "md" | "lg" | "xl") => {
+        const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+        const isTablet = typeof window !== "undefined" && window.innerWidth < 1024;
+        const fontSizeMap = {
+            sm: isMobile ? 24 : 40,
+            md: isMobile ? 36 : 60,
+            lg: isMobile ? 48 : 80,
+            xl: isMobile ? 55 : isTablet ? 80 : 120
+        };
+        return fontSizeMap[sizeKey];
     };
 
     useEffect(() => {
@@ -68,7 +73,7 @@ export default function ExplodingText({ text, className, size = "md" }: Explodin
             // Draw Text to Canvas (Hidden)
             // We use a temporary context logic or just clear/draw/read on main
             ctx.fillStyle = "#ffffff";
-            ctx.font = `900 ${fontSizeMap[size]}px 'Space Grotesk', monospace`; // Try to match font
+            ctx.font = `900 ${getResponsiveFontSize(size)}px 'Space Grotesk', monospace`; // Try to match font
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             ctx.fillText(text, width / 2, height / 2);
@@ -179,13 +184,13 @@ export default function ExplodingText({ text, className, size = "md" }: Explodin
     }, [text, size]);
 
     return (
-        <div className={cn("relative w-full overflow-visible flex items-center justify-center", className)} style={{ height: fontSizeMap[size] * 1.5 }}>
+        <div className={cn("relative w-full overflow-visible flex items-center justify-center", className)} style={{ height: getResponsiveFontSize(size) * 1.5 }}>
             <canvas
                 ref={canvasRef}
                 className="absolute inset-0 z-10"
             />
             {/* Invisible accessible text */}
-            <span className="opacity-0 select-none pointer-events-none font-bold text-transparent" style={{ fontSize: fontSizeMap[size] }}>
+            <span className="opacity-0 select-none pointer-events-none font-bold text-transparent" style={{ fontSize: getResponsiveFontSize(size) }}>
                 {text}
             </span>
         </div>

@@ -70,7 +70,7 @@ export default function DossierPlayer() {
     }, [currentTrackIdx]);
 
     return (
-        <div className="fixed top-8 right-8 z-[150] font-mono select-none">
+        <div className="fixed top-4 right-4 sm:top-8 sm:right-8 z-[150] font-mono select-none hidden sm:block">
             <audio ref={audioRef} preload="auto" />
             
             <div className="flex items-center gap-4 bg-[#0A0A0A] border border-silver/10 hover:border-acid/30 px-5 py-3.5 shadow-[0_0_20px_rgba(0,0,0,0.8)] transition-all duration-300">
