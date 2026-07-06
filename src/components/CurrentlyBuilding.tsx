@@ -26,7 +26,7 @@ const ventures: Venture[] = [
         title: "BlueBloodExports",
         description: "Directing technology and systems as CTO for premium global export operations.",
         statusText: "SCALING // CTO",
-        progress: 9.8,
+        progress: 8.8,
         link: "https://www.bluebloodexports.com/"
     },
     {
