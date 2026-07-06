@@ -18,12 +18,11 @@ export default function WhoamiModal({ isOpen, onClose }: WhoamiModalProps) {
         "Initializing secure connection...",
         "Connection established. Access granted to Mainframe.",
         "--------------------------------------------------",
-        " ____    _   ____    ____  ",
-        "|  _ \\  (_) |  _ \\  / ___| ",
-        "| | | |  |  | |_) | \\___ \\ ",
-        "| |_| |  |  |  __/   ___) |",
-        "|____/   |  |_|     |____/ ",
-        "         |_|               ",
+        "######    ####   ######    ##### ",
+        "#     #    ##    #     #  #      ",
+        "#     #    ##    ######    ##### ",
+        "#     #    ##    #              #",
+        "######    ####   #        #####  ",
         "--------------------------------------------------",
         "CODENAME         : DiPS",
         "REAL NAME        : Diptish De",
@@ -159,7 +158,7 @@ export default function WhoamiModal({ isOpen, onClose }: WhoamiModalProps) {
                         
                         const isPrompt = line.startsWith("dips@mainframe:~$");
                         const isAcid = line.startsWith("Connection") || line.startsWith("Available") || line.startsWith("SYS_REGISTRY");
-                        const isAscii = line.includes("█") || line.includes("|  _") || line.includes("|____") || line.includes("|_|");
+                        const isAscii = line.includes("█") || line.includes("#") || line.includes("|  _") || line.includes("|____") || line.includes("|_|");
                         const isWhite = line.startsWith("CODENAME") || line.startsWith("REAL NAME") || line.startsWith("OCCUPATION") || line.startsWith("CURRENT") || line.startsWith("STATUS");
 
                         if (isAscii) {
