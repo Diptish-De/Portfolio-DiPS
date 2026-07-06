@@ -10,17 +10,19 @@ import { Github, Linkedin, Instagram } from "lucide-react";
 function CountUp({ end, suffix = "", duration = 1.5 }: { end: number; suffix?: string; duration?: number }) {
     const [count, setCount] = useState(0);
     const elementRef = useRef<HTMLSpanElement>(null);
+    const hasAnimated = useRef(false);
 
     useEffect(() => {
         let startTime: number | null = null;
         let animationFrameId: number;
 
         const handleScroll = () => {
-            if (!elementRef.current) return;
+            if (!elementRef.current || hasAnimated.current) return;
             const rect = elementRef.current.getBoundingClientRect();
             const inView = rect.top < window.innerHeight && rect.bottom >= 0;
             
-            if (inView && count === 0) {
+            if (inView) {
+                hasAnimated.current = true;
                 const animateCount = (timestamp: number) => {
                     if (!startTime) startTime = timestamp;
                     const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
@@ -44,7 +46,7 @@ function CountUp({ end, suffix = "", duration = 1.5 }: { end: number; suffix?: s
             window.removeEventListener("scroll", handleScroll);
             cancelAnimationFrame(animationFrameId);
         };
-    }, [end, duration, count]);
+    }, [end, duration]);
 
     return <span ref={elementRef}>{count}{suffix}</span>;
 }
@@ -53,19 +55,22 @@ function CountUp({ end, suffix = "", duration = 1.5 }: { end: number; suffix?: s
 function MinimalProgressBar({ label, subtitle, progressVal }: { label: string; subtitle: string; progressVal: number }) {
     const [animatedVal, setAnimatedVal] = useState(0);
     const elementRef = useRef<HTMLDivElement>(null);
+    const hasAnimated = useRef(false);
 
     useEffect(() => {
+        let timer: NodeJS.Timeout;
         const handleScroll = () => {
-            if (!elementRef.current) return;
+            if (!elementRef.current || hasAnimated.current) return;
             const rect = elementRef.current.getBoundingClientRect();
             const inView = rect.top < window.innerHeight && rect.bottom >= 0;
-            if (inView && animatedVal === 0) {
+            if (inView) {
+                hasAnimated.current = true;
                 // Animate value count up
                 let start = 0;
                 const end = progressVal;
                 const duration = 1000; // 1s
                 const stepTime = Math.abs(Math.floor(duration / end));
-                const timer = setInterval(() => {
+                timer = setInterval(() => {
                     start += 1;
                     setAnimatedVal(start);
                     if (start >= end) {
@@ -77,8 +82,11 @@ function MinimalProgressBar({ label, subtitle, progressVal }: { label: string; s
         };
         window.addEventListener("scroll", handleScroll);
         handleScroll();
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [progressVal, animatedVal]);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            if (timer) clearInterval(timer);
+        };
+    }, [progressVal]);
 
     const totalSegments = 25;
     const filledSegments = Math.round((animatedVal / 100) * totalSegments);
