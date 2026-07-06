@@ -88,18 +88,18 @@ function MinimalProgressBar({ label, subtitle, progressVal }: { label: string; s
         };
     }, [progressVal]);
 
-    const totalSegments = 25;
+    const totalSegments = 15;
     const filledSegments = Math.round((animatedVal / 100) * totalSegments);
 
     return (
-        <div ref={elementRef} className="space-y-2 select-none font-mono text-xs">
+        <div ref={elementRef} className="space-y-1.5 select-none font-mono text-[11px] sm:text-xs">
             <div className="flex justify-between text-[9px] text-silver/40 tracking-wider">
                 <span>{label} // {subtitle}</span>
                 <span className="text-acid font-bold">{animatedVal}%</span>
             </div>
             
             {/* Segmented Ticks Loader */}
-            <div className="flex gap-[3px] w-full pt-1">
+            <div className="flex gap-[3px] w-full pt-0.5">
                 {Array.from({ length: totalSegments }).map((_, idx) => {
                     const isFilled = idx < filledSegments;
                     return (
@@ -108,7 +108,7 @@ function MinimalProgressBar({ label, subtitle, progressVal }: { label: string; s
                             style={{
                                 opacity: isFilled ? 1 : 0.15,
                                 backgroundColor: isFilled ? "#D7FF2F" : "#ffffff",
-                                height: "6px"
+                                height: "4px"
                             }}
                             className={`flex-1 transition-all duration-300 ${
                                 isFilled 
@@ -175,7 +175,7 @@ export default function AboutSection() {
                         </div>
 
                         {/* Creative Interactive Terminal File */}
-                        <div className="border border-silver/10 bg-[#070707] font-mono text-xs overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                        <div className="border border-silver/10 bg-[#070707] font-mono text-[10px] sm:text-xs overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)]">
                             {/* Terminal Tab Bar */}
                             <div className="flex justify-between items-center bg-black/60 px-4 py-2 border-b border-silver/10">
                                 <div className="flex items-center gap-1.5">
@@ -186,11 +186,11 @@ export default function AboutSection() {
                             </div>
                             
                             {/* Terminal Content Panel */}
-                            <div className="p-6 space-y-4 select-text bg-[#090909]/40 relative">
+                            <div className="p-4 sm:p-6 space-y-3 sm:space-y-4 select-text bg-[#090909]/40 relative">
                                 <div className="absolute top-2 right-2 text-[9px] text-silver/10 font-bold pointer-events-none select-none">
                                     SECTOR_0x4F
                                 </div>
-                                <div className="space-y-3 text-silver/70 leading-relaxed pl-4 border-l border-acid/20">
+                                <div className="space-y-2 sm:space-y-3 text-silver/70 leading-relaxed pl-4 border-l border-acid/20">
                                     <p className="hover:text-white transition-colors duration-300">
                                         <span className="text-acid/40 mr-2">&gt;</span>
                                         Design earns <span className="text-white font-bold">attention.</span>
@@ -212,7 +212,7 @@ export default function AboutSection() {
                         </div>
 
                         {/* Segmented Hardware Diagnostic Bars */}
-                        <div className="p-6 border border-silver/10 bg-[#070707] space-y-5 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                        <div className="p-4 sm:p-6 border border-silver/10 bg-[#070707] space-y-4 sm:space-y-5 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
                             <div className="flex justify-between items-center font-mono text-[9px] text-acid font-bold tracking-widest border-b border-silver/5 pb-2">
                                 <span>SYSTEM_DIAGNOSTICS</span>
                                 <span className="text-silver/30">MONITOR: ACTIVE</span>
