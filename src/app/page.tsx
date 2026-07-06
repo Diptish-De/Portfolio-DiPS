@@ -123,75 +123,75 @@ export default function Home() {
                     <span>DOSSIER_V2.5</span>
                 </div>
 
-                <div className="z-10 flex flex-col items-center text-center gap-10 max-w-4xl">
-                    <div className="space-y-6 w-full">
-                        <h2 className="font-mono text-silver/40 text-[10px] tracking-[0.3em] uppercase">
-                            PROFILE // ONLINE
-                        </h2>
-                        <div className="flex flex-col gap-6 leading-[0.85] text-center items-center w-full">
-                            <ExplodingText text="DIPTISH" size="xl" className="font-space tracking-tighter" />
-                            
-                            {/* Rotating Typewriter Title Element in between DIPTISH and DE */}
-                            <div className="h-8 flex items-center justify-center py-6 select-none">
-                                <TypewriterTitle words={titles} />
+                {/* Main Interactive Dossier Grid */}
+                <div className="z-10 w-full max-w-7xl px-4 flex flex-col md:grid md:grid-cols-12 md:gap-8 md:items-center py-6 relative">
+                    
+                    {/* Left Lore Block (Column 1 - md:col-span-3) */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="md:col-span-3 font-mono text-xs sm:text-sm text-silver/60 text-left md:text-right border-l-2 md:border-l-0 md:border-r-2 border-acid/20 pl-4 md:pl-0 md:pr-6 py-4 md:py-2 space-y-2 select-text bg-black/10 md:bg-transparent p-4 md:p-0"
+                    >
+                        <span className="text-acid font-bold text-[9px] tracking-wider block mb-1">
+                            // CORE_STATEMENT
+                        </span>
+                        <p className="leading-relaxed">
+                            I design interfaces, engineer products, and build communities around ideas.
+                        </p>
+                    </motion.div>
+
+                    {/* Center Title Block (Column 2 - md:col-span-6) */}
+                    <div className="md:col-span-6 flex flex-col items-center text-center gap-6 py-6 md:py-0">
+                        <div className="space-y-6 w-full">
+                            <h2 className="font-mono text-silver/40 text-[10px] tracking-[0.3em] uppercase">
+                                PROFILE // ONLINE
+                            </h2>
+                            <div className="flex flex-col gap-6 leading-[0.85] text-center items-center w-full">
+                                <ExplodingText text="DIPTISH" size="xl" className="font-space tracking-tighter" />
+                                
+                                {/* Rotating Typewriter Title Element in between DIPTISH and DE */}
+                                <div className="h-8 flex items-center justify-center py-6 select-none">
+                                    <TypewriterTitle words={titles} />
+                                </div>
+
+                                <ExplodingText text="DE" size="xl" className="font-space tracking-tighter" />
                             </div>
 
-                            <ExplodingText text="DE" size="xl" className="font-space tracking-tighter" />
-                        </div>
-
-                        {/* Highly Prominent Console Prompt Message with generous padding */}
-                        <div className="pt-10 pb-6 flex flex-col items-center select-none">
-                            <span className="inline-flex items-center gap-2 px-4 py-2 bg-acid/10 border border-acid/20 text-acid text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(215,255,47,0.04)]">
-                                <span className="w-1.5 h-1.5 rounded-full bg-acid animate-ping shadow-[0_0_8px_#D7FF2F]" />
-                                Console Alert: Type &quot;whoami&quot; anywhere to launch secure shell terminal
-                            </span>
+                            {/* Highly Prominent Console Prompt Message */}
+                            <div className="pt-6 pb-2 flex flex-col items-center select-none">
+                                <span className="inline-flex items-center gap-2 px-4 py-2 bg-acid/10 border border-acid/20 text-acid text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(215,255,47,0.04)]">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-acid animate-ping shadow-[0_0_8px_#D7FF2F]" />
+                                    Console Alert: Type &quot;whoami&quot; anywhere to launch secure shell terminal
+                                </span>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Staggered Line Animation Description */}
+                    {/* Right Lore Block (Column 3 - md:col-span-3) */}
                     <motion.div
-                        initial="hidden"
-                        animate="visible"
-                        variants={{
-                            hidden: {},
-                            visible: {
-                                transition: {
-                                    staggerChildren: 0.2
-                                }
-                            }
-                        }}
-                        className="text-silver/80 max-w-md font-mono text-xs sm:text-sm leading-relaxed border-l border-r border-acid/20 px-6 text-center backdrop-blur-sm bg-black/5 p-6 space-y-4 mx-auto"
+                        initial={{ opacity: 0, x: 30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                        className="md:col-span-3 font-mono text-xs sm:text-sm text-silver/60 text-left border-l-2 border-acid/20 pl-4 py-4 md:py-2 space-y-2 select-text bg-black/10 md:bg-transparent p-4 md:p-0"
                     >
-                        <motion.p
-                            variants={{
-                                hidden: { opacity: 0, x: -10 },
-                                visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
-                            }}
-                        >
-                            I design interfaces, engineer products,  
-                            and build communities around ideas.
-                        </motion.p>
-                        <motion.p
-                            variants={{
-                                hidden: { opacity: 0, x: -10 },
-                                visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
-                            }}
-                            className="text-silver/50"
-                        >
-                            Currently building <span className="text-white">EXIMARG</span> & <span className="text-white">BlueBloodExports (CTO)</span>,  
-                            organizing <span className="text-white">DropoutHacks</span>,  
-                            and shipping whatever refuses to leave my head.
-                        </motion.p>
+                        <span className="text-acid font-bold text-[9px] tracking-wider block mb-1">
+                            // ACTIVE_MISSIONS
+                        </span>
+                        <p className="leading-relaxed text-silver/50">
+                            Currently building <span className="text-white font-bold">EXIMARG</span> & <span className="text-white font-bold">BlueBloodExports (CTO)</span>, organizing <span className="text-white font-bold">DropoutHacks</span>, and shipping whatever refuses to leave my head.
+                        </p>
                     </motion.div>
+                </div>
 
-                    <div className="flex flex-wrap gap-4 justify-center mt-2">
-                        <div onClick={scrollToDossier}>
-                            <CyberButton>
-                                <span className="flex items-center gap-2">
-                                    ENTER DOSSIER <ArrowRight className="w-4 h-4" />
-                                </span>
-                            </CyberButton>
-                        </div>
+                {/* Primary Call to Action Button */}
+                <div className="z-10 flex justify-center mt-6 select-none">
+                    <div onClick={scrollToDossier}>
+                        <CyberButton>
+                            <span className="flex items-center gap-2">
+                                ENTER DOSSIER <ArrowRight className="w-4 h-4" />
+                            </span>
+                        </CyberButton>
                     </div>
                 </div>
 
