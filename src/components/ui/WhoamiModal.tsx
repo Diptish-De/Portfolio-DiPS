@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { X, Terminal } from "lucide-react";
 
 interface WhoamiModalProps {
@@ -9,11 +9,14 @@ interface WhoamiModalProps {
 }
 
 export default function WhoamiModal({ isOpen, onClose }: WhoamiModalProps) {
-    const [typedLines, setTypedLines] = useState<string[]>([]);
+    const [history, setHistory] = useState<string[]>([]);
+    const [inputValue, setInputValue] = useState("");
+    const inputRef = useRef<HTMLInputElement>(null);
+    const consoleEndRef = useRef<HTMLDivElement>(null);
     
     const dossierData = [
         "Initializing secure connection...",
-        "Connection established. Access granted to Dossier.",
+        "Connection established. Access granted to Mainframe.",
         "--------------------------------------------------",
         " ██████╗  ██╗██████╗ ███████╗",
         " ██╔══██╗ ██║██╔══██╗██╔════╝",
@@ -28,30 +31,84 @@ export default function WhoamiModal({ isOpen, onClose }: WhoamiModalProps) {
         "CURRENT FOCUS    : EXIMARG // DropoutHacks // AI Products",
         "STATUS           : Always Building.",
         "--------------------------------------------------",
-        "Type 'exit' or click [X] to return."
+        "Type 'exit' to close, or 'help' for command list."
     ];
 
+    // Initialize/reset terminal logs
     useEffect(() => {
         if (!isOpen) {
-            setTypedLines([]);
+            setHistory([]);
             return;
         }
 
         let currentLine = 0;
         const interval = setInterval(() => {
             if (currentLine < dossierData.length) {
-                setTypedLines(prev => [...prev, dossierData[currentLine]]);
+                setHistory(prev => [...prev, dossierData[currentLine]]);
                 currentLine++;
             } else {
                 clearInterval(interval);
+                // Focus input once typing finishes
+                inputRef.current?.focus();
             }
-        }, 120);
+        }, 80);
 
         return () => clearInterval(interval);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isOpen]);
 
-    // Handle Escape key to close
+    // Keep console scrolled to bottom
+    useEffect(() => {
+        consoleEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [history]);
+
+    // Auto-focus input on modal click
+    const handleContainerClick = () => {
+        inputRef.current?.focus();
+    };
+
+    // Process Terminal Commands
+    const handleCommandSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        const cmd = inputValue.trim().toLowerCase();
+        if (!cmd) return;
+
+        // Append user prompt to history
+        const newHistory = [...history, `dips@mainframe:~$ ${inputValue}`];
+
+        if (cmd === "exit") {
+            onClose();
+            setInputValue("");
+            return;
+        }
+
+        if (cmd === "help") {
+            newHistory.push(
+                "Available commands:",
+                "  help       - Display this instruction log",
+                "  sysinfo    - Print system registry specs",
+                "  clear      - Clear console logs",
+                "  exit       - Shutdown terminal connection"
+            );
+        } else if (cmd === "sysinfo") {
+            newHistory.push(
+                "SYS_REGISTRY_METADATA:",
+                `  USER_AGENT : ${navigator.userAgent.substring(0, 50)}...`,
+                `  PLATFORM   : ${navigator.platform}`,
+                "  SEC_TRIAL  : SYSTEM ACTIVE // OK"
+            );
+        } else if (cmd === "clear") {
+            setHistory([]);
+            setInputValue("");
+            return;
+        } else {
+            newHistory.push(`Command not found: '${cmd}'. Type 'help' or 'exit'.`);
+        }
+
+        setHistory(newHistory);
+        setInputValue("");
+    };
+
+    // Close on Escape
     useEffect(() => {
         if (!isOpen) return;
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -65,12 +122,15 @@ export default function WhoamiModal({ isOpen, onClose }: WhoamiModalProps) {
 
     return (
         <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/85 backdrop-blur-md p-4">
-            <div className="w-full max-w-lg bg-[#0A0A0A] border border-acid/30 shadow-[0_0_50px_rgba(215,255,47,0.1)] p-6 font-mono text-xs text-silver/80 relative">
+            <div 
+                onClick={handleContainerClick}
+                className="w-full max-w-lg bg-[#0A0A0A] border border-acid/30 shadow-[0_0_50px_rgba(215,255,47,0.1)] p-6 font-mono text-xs text-silver/80 relative cursor-text"
+            >
                 {/* Header */}
-                <div className="flex justify-between items-center border-b border-silver/10 pb-3 mb-4">
+                <div className="flex justify-between items-center border-b border-silver/10 pb-3 mb-4 select-none">
                     <div className="flex items-center gap-2 text-acid">
                         <Terminal className="w-4 h-4" />
-                        <span>dossier_terminal://whoami</span>
+                        <span>dips_terminal://whoami</span>
                     </div>
                     <button 
                         onClick={onClose} 
@@ -81,22 +141,36 @@ export default function WhoamiModal({ isOpen, onClose }: WhoamiModalProps) {
                 </div>
 
                 {/* Console Output */}
-                <div className="space-y-2 min-h-[220px] select-text">
-                    {typedLines.map((line, idx) => {
+                <div className="space-y-1.5 h-[280px] overflow-y-auto pr-1 select-text scrollbar-thin scrollbar-thumb-silver/10 scrollbar-track-transparent">
+                    {history.map((line, idx) => {
                         if (!line) return null;
-                        const isWhite = line.startsWith("CODENAME") || line.startsWith("REAL NAME") || line.startsWith("OCCUPATION") || line.startsWith("CURRENT") || line.startsWith("STATUS");
-                        const isAcid = line.startsWith("Connection");
+                        
+                        const isPrompt = line.startsWith("dips@mainframe:~$");
+                        const isAcid = line.startsWith("Connection") || line.startsWith("Available") || line.startsWith("SYS_REGISTRY");
                         const isAscii = line.includes("█");
+                        const isWhite = line.startsWith("CODENAME") || line.startsWith("REAL NAME") || line.startsWith("OCCUPATION") || line.startsWith("CURRENT") || line.startsWith("STATUS");
+
+                        if (isAscii) {
+                            return (
+                                <pre 
+                                    key={idx} 
+                                    className="font-mono text-[9px] sm:text-[10px] leading-[1] text-acid font-bold tracking-normal py-0.5 overflow-x-auto select-none"
+                                >
+                                    {line}
+                                </pre>
+                            );
+                        }
+
                         return (
                             <div 
                                 key={idx} 
                                 className={
-                                    isWhite
+                                    isPrompt
+                                        ? "text-acid font-bold"
+                                        : isWhite
                                         ? "text-white font-bold"
                                         : isAcid
                                         ? "text-acid font-bold"
-                                        : isAscii
-                                        ? "text-acid/90 font-black"
                                         : "text-silver/60"
                                 }
                             >
@@ -104,7 +178,22 @@ export default function WhoamiModal({ isOpen, onClose }: WhoamiModalProps) {
                             </div>
                         );
                     })}
-                    <div className="w-2 h-4 bg-acid/80 inline-block animate-pulse ml-0.5" />
+                    
+                    {/* Interactive Input Form */}
+                    <form onSubmit={handleCommandSubmit} className="flex items-center gap-1.5 mt-2">
+                        <span className="text-acid font-bold">dips@mainframe:~$</span>
+                        <input
+                            ref={inputRef}
+                            type="text"
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
+                            className="flex-1 bg-transparent border-none outline-none text-white font-mono text-xs p-0 focus:ring-0"
+                            placeholder=""
+                            autoComplete="off"
+                            autoCapitalize="none"
+                        />
+                    </form>
+                    <div ref={consoleEndRef} />
                 </div>
             </div>
         </div>
