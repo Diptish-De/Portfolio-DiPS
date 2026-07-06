@@ -79,7 +79,7 @@ export default function ExplodingText({ text, className, size = "md" }: Explodin
 
             particles.length = 0;
 
-            const step = 4; // Sample every 4th pixel for performance/aesthetic
+            const step = 3; // Better density for sharper display
 
             for (let y = 0; y < height; y += step) {
                 for (let x = 0; x < width; x += step) {
@@ -94,7 +94,7 @@ export default function ExplodingText({ text, className, size = "md" }: Explodin
                             originY: y,
                             vx: 0,
                             vy: 0,
-                            size: 2, // Blocky pixel look
+                            size: 2.5, // Sleek blocky pixel layout
                             color: "#e2e2e2" // Silver
                         });
                     }
@@ -132,6 +132,14 @@ export default function ExplodingText({ text, className, size = "md" }: Explodin
                 p.vy *= FRICTION;
                 p.x += p.vx;
                 p.y += p.vy;
+
+                // Reactive color based on displacement from origin
+                const displacement = Math.sqrt(ox * ox + oy * oy);
+                if (displacement > 2) {
+                    p.color = "#D7FF2F"; // Acid green when active
+                } else {
+                    p.color = "#E5E7EB"; // Crisp off-white when resting
+                }
 
                 // Draw
                 ctx.fillStyle = p.color;
