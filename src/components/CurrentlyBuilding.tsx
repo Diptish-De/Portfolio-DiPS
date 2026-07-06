@@ -19,7 +19,7 @@ const ventures: Venture[] = [
         description: "Making international trade less painful with AI.",
         statusText: "DEVELOPING",
         progress: 3.1,
-        link: "https://eximarg.com"
+        link: "/coming-soon?project=eximarg"
     },
     {
         id: "02",
@@ -35,7 +35,7 @@ const ventures: Venture[] = [
         description: "A build festival for people who'd rather create than compete.",
         statusText: "ORGANIZING",
         progress: 7,
-        link: "https://github.com/supratim1609/dropout_hacks"
+        link: "https://www.dropouthacks.tech/"
     },
     {
         id: "04",
@@ -43,7 +43,7 @@ const ventures: Venture[] = [
         description: "A clothing brand inspired by Bengal, reimagined for Gen Z.",
         statusText: "OPERATIONAL",
         progress: 5,
-        link: "https://moodrip.com"
+        link: "/coming-soon?project=moodrip"
     }
 ];
 
