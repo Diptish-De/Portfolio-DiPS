@@ -20,7 +20,7 @@ function MarqueeRow({ items, reverse = false, colorClass = "hover:text-acid" }: 
                     <span
                         key={`a-${i}`}
                         className={cn(
-                            "font-space font-bold text-6xl md:text-8xl px-4 text-white/10 transition-all duration-300 cursor-crosshair hover:scale-110 hover:skew-x-3",
+                            "font-space font-bold text-4xl sm:text-6xl md:text-8xl px-4 text-white/10 transition-all duration-300 cursor-crosshair hover:scale-110 hover:skew-x-3",
                             colorClass
                         )}
                     >
@@ -37,7 +37,7 @@ function MarqueeRow({ items, reverse = false, colorClass = "hover:text-acid" }: 
                     <span
                         key={`b-${i}`}
                         className={cn(
-                            "font-space font-bold text-6xl md:text-8xl px-4 text-white/10 transition-all duration-300 cursor-crosshair hover:scale-110 hover:skew-x-3",
+                            "font-space font-bold text-4xl sm:text-6xl md:text-8xl px-4 text-white/10 transition-all duration-300 cursor-crosshair hover:scale-110 hover:skew-x-3",
                             colorClass
                         )}
                     >

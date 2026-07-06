@@ -9,7 +9,7 @@ export default function Footer() {
                 {/* Call to Action */}
                 <div className="space-y-6">
                     <p className="text-acid font-mono text-sm tracking-widest">TRANSMISSION_OPEN</p>
-                    <h2 className="text-5xl md:text-7xl font-space font-bold">
+                    <h2 className="text-3xl sm:text-5xl md:text-7xl font-space font-bold">
                         READY TO <br />
                         <span className="text-transparent" style={{ WebkitTextStroke: "1px var(--color-silver)" }}>COLLABORATE?</span>
                     </h2>

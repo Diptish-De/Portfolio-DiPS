@@ -34,9 +34,9 @@ export default function ObsessionsSection() {
         <section className="relative py-16 sm:py-32 bg-background border-t border-silver/10 overflow-hidden">
             <div className="container mx-auto px-6 max-w-4xl">
                 {/* Header */}
-                <div className="mb-20 flex flex-col gap-2">
+                <div className="mb-12 sm:mb-20 flex flex-col gap-2">
                     <span className="text-acid font-mono text-xs tracking-[0.3em]">[ SYSTEM_INTERESTS ]</span>
-                    <h2 className="text-4xl md:text-5xl font-space font-black tracking-tight uppercase text-white">
+                    <h2 className="text-3xl md:text-5xl font-space font-black tracking-tight uppercase text-white">
                         CURRENT OBSESSIONS
                     </h2>
                 </div>
@@ -58,7 +58,7 @@ export default function ObsessionsSection() {
                             <span className="font-mono text-acid text-lg transition-transform duration-300 group-hover:translate-x-2">
                                 →
                             </span>
-                            <span className="font-mono text-lg md:text-xl text-silver/80 group-hover:text-white transition-colors tracking-wide">
+                            <span className="font-mono text-lg md:text-xl text-silver/80 group-hover:text-white transition-colors tracking-wide leading-snug">
                                 {obsession}
                             </span>
                         </motion.div>

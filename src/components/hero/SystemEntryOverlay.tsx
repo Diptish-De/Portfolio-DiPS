@@ -55,7 +55,7 @@ export default function SystemEntryOverlay({ onEnter }: SystemEntryOverlayProps)
                 {/* Big Cyber Button */}
                 <button
                     onClick={handleEnter}
-                    className="relative group cursor-pointer px-10 py-5 bg-[#0a0a0a] border border-acid/40 hover:border-acid text-acid hover:text-black font-mono text-sm tracking-[0.25em] uppercase transition-all duration-300 shadow-[0_0_30px_rgba(204,255,0,0.05)] hover:shadow-[0_0_40px_rgba(204,255,0,0.2)] overflow-hidden"
+                    className="relative group cursor-pointer px-6 py-4 sm:px-10 sm:py-5 bg-[#0a0a0a] border border-acid/40 hover:border-acid text-acid hover:text-black font-mono text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.25em] uppercase transition-all duration-300 shadow-[0_0_30px_rgba(204,255,0,0.05)] hover:shadow-[0_0_40px_rgba(204,255,0,0.2)] overflow-hidden"
                 >
                     {/* Hover slider background */}
                     <div className="absolute inset-0 bg-acid translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0" />
