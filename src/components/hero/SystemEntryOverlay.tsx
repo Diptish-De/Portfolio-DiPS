@@ -3,7 +3,11 @@
 import { useState } from "react";
 import { Terminal } from "lucide-react";
 
-export default function SystemEntryOverlay() {
+interface SystemEntryOverlayProps {
+    onEnter?: () => void;
+}
+
+export default function SystemEntryOverlay({ onEnter }: SystemEntryOverlayProps) {
     const [status, setStatus] = useState("AWAITING_INPUT");
     const [isMounted, setIsMounted] = useState(true);
     const [isFading, setIsFading] = useState(false);
@@ -19,6 +23,8 @@ export default function SystemEntryOverlay() {
         } catch (e) {
             console.warn("Audio Context initialization deferred", e);
         }
+
+        if (onEnter) onEnter();
 
         setIsFading(true);
         setTimeout(() => {

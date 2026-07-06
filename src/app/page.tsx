@@ -67,6 +67,7 @@ function TypewriterTitle({ words }: { words: string[] }) {
 export default function Home() {
     const titles = ["PRODUCT ENGINEER", "DESIGNER", "BUILDER"];
     const [whoamiOpen, setWhoamiOpen] = useState(false);
+    const [isInitialized, setIsInitialized] = useState(false);
 
     // whoami Easter Egg Key Listener
     useEffect(() => {
@@ -96,8 +97,8 @@ export default function Home() {
 
     return (
         <>
-            <SystemEntryOverlay />
-            <DossierPlayer />
+            <SystemEntryOverlay onEnter={() => setIsInitialized(true)} />
+            {isInitialized && <DossierPlayer />}
             <WhoamiModal isOpen={whoamiOpen} onClose={() => setWhoamiOpen(false)} />
             <GridBackground />
             <LiquidDistortion />
