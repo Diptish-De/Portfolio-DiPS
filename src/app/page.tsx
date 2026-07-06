@@ -160,8 +160,8 @@ export default function Home() {
 
                             {/* Highly Prominent Console Prompt Message */}
                             <div className="pt-6 pb-2 flex flex-col items-center select-none">
-                                <span className="inline-flex items-center gap-2 px-4 py-2 bg-acid/10 border border-acid/20 text-acid text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(215,255,47,0.04)]">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-acid animate-ping shadow-[0_0_8px_#D7FF2F]" />
+                                <span className="inline-flex items-center gap-2 px-4 py-2 bg-acid/15 border border-acid/40 text-acid text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] shadow-[0_0_25px_rgba(215,255,47,0.25)] [text-shadow:0_0_8px_rgba(215,255,47,0.7)] animate-pulse">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-acid [box-shadow:0_0_10px_#D7FF2F] shrink-0" />
                                     Console Alert: Type &quot;whoami&quot; anywhere to launch secure shell terminal
                                 </span>
                             </div>
