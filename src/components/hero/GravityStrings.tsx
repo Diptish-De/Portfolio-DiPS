@@ -57,6 +57,8 @@ export default function GravityStrings() {
 
     // Canvas + String Physics + Audio Synth
     useEffect(() => {
+        if (typeof window !== "undefined" && window.innerWidth < 768) return;
+
         const canvas = canvasRef.current;
         if (!canvas) return;
 
@@ -249,10 +251,10 @@ export default function GravityStrings() {
         <>
             <canvas
                 ref={canvasRef}
-                className="absolute inset-0 z-0 pointer-events-none"
+                className="absolute inset-0 z-0 pointer-events-none hidden md:block"
                 style={{ width: '100%', height: '100%' }}
             />
-            <div className="absolute bottom-10 left-10 font-mono text-[10px] select-none pointer-events-none flex flex-col gap-1">
+            <div className="absolute bottom-10 left-10 font-mono text-[10px] select-none pointer-events-none flex flex-col gap-1 hidden md:flex">
                 {audioActive ? (
                     <span className="text-acid flex items-center gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-acid animate-pulse shadow-[0_0_8px_#CCFF00]" />

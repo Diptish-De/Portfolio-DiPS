@@ -48,9 +48,11 @@ export default function LiquidDistortion() {
                 </filter>
             </svg>
             <style jsx global>{`
-                /* Apply to the specific Hero elements or globally */
-                .liquid-hero {
-                    filter: url(#liquid-distortion);
+                /* Apply to the specific Hero elements or globally only on desktop */
+                @media (min-width: 768px) {
+                    .liquid-hero {
+                        filter: url(#liquid-distortion);
+                    }
                 }
             `}</style>
         </>
