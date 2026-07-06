@@ -135,6 +135,14 @@ export default function Home() {
                         <div className="h-6 flex items-center justify-center pt-2">
                             <TypewriterTitle words={titles} />
                         </div>
+
+                        {/* Highly Prominent Console Prompt Message */}
+                        <div className="pt-2 flex flex-col items-center select-none">
+                            <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-acid/10 border border-acid/30 text-acid text-[9px] sm:text-[10.5px] font-mono uppercase tracking-[0.2em] shadow-[0_0_15px_rgba(215,255,47,0.05)]">
+                                <span className="w-1.5 h-1.5 rounded-full bg-acid animate-ping shadow-[0_0_8px_#D7FF2F]" />
+                                Console Alert: Type &quot;whoami&quot; anywhere to launch secure shell terminal
+                            </span>
+                        </div>
                     </div>
 
                     {/* Staggered Line Animation Description */}
