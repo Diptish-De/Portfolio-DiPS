@@ -131,7 +131,7 @@ export default function Home() {
                         initial={{ opacity: 0, x: -30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="md:col-span-3 font-mono text-xs sm:text-sm text-silver/60 text-left md:text-right border-l-2 md:border-l-0 md:border-r-2 border-acid/20 pl-4 md:pl-0 md:pr-6 py-4 md:py-2 space-y-2 select-text bg-black/10 md:bg-transparent p-4 md:p-0"
+                        className="md:col-span-3 font-mono text-xs sm:text-sm text-silver/60 text-left md:text-right border-l-2 md:border-l-0 md:border-r-2 border-acid/20 p-4 md:py-0 md:pl-0 md:pr-6 space-y-2 select-text"
                     >
                         <span className="text-acid font-bold text-[9px] tracking-wider block mb-1">
                             // CORE_STATEMENT
@@ -173,7 +173,7 @@ export default function Home() {
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="md:col-span-3 font-mono text-xs sm:text-sm text-silver/60 text-left border-l-2 border-acid/20 pl-4 py-4 md:py-2 space-y-2 select-text bg-black/10 md:bg-transparent p-4 md:p-0"
+                        className="md:col-span-3 font-mono text-xs sm:text-sm text-silver/60 text-left border-l-2 border-acid/20 p-4 md:py-0 md:pr-0 md:pl-6 space-y-2 select-text"
                     >
                         <span className="text-acid font-bold text-[9px] tracking-wider block mb-1">
                             // ACTIVE_MISSIONS
