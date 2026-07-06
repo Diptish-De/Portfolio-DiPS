@@ -51,7 +51,7 @@ function CountUp({ end, suffix = "", duration = 1.5 }: { end: number; suffix?: s
 
 // Highly Premium Minimal Progress Indicator
 function MinimalProgressBar({ label, subtitle, progressVal }: { label: string; subtitle: string; progressVal: number }) {
-    const [width, setWidth] = useState(0);
+    const [animatedVal, setAnimatedVal] = useState(0);
     const elementRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -59,29 +59,57 @@ function MinimalProgressBar({ label, subtitle, progressVal }: { label: string; s
             if (!elementRef.current) return;
             const rect = elementRef.current.getBoundingClientRect();
             const inView = rect.top < window.innerHeight && rect.bottom >= 0;
-            if (inView && width === 0) {
-                setWidth(progressVal);
+            if (inView && animatedVal === 0) {
+                // Animate value count up
+                let start = 0;
+                const end = progressVal;
+                const duration = 1000; // 1s
+                const stepTime = Math.abs(Math.floor(duration / end));
+                const timer = setInterval(() => {
+                    start += 1;
+                    setAnimatedVal(start);
+                    if (start >= end) {
+                        clearInterval(timer);
+                    }
+                }, stepTime);
                 window.removeEventListener("scroll", handleScroll);
             }
         };
         window.addEventListener("scroll", handleScroll);
         handleScroll();
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [progressVal, width]);
+    }, [progressVal, animatedVal]);
+
+    const totalSegments = 25;
+    const filledSegments = Math.round((animatedVal / 100) * totalSegments);
 
     return (
-        <div ref={elementRef} className="space-y-1.5 select-none font-mono text-xs">
+        <div ref={elementRef} className="space-y-2 select-none font-mono text-xs">
             <div className="flex justify-between text-[9px] text-silver/40 tracking-wider">
                 <span>{label} // {subtitle}</span>
-                <span className="text-acid font-bold">{progressVal}%</span>
+                <span className="text-acid font-bold">{animatedVal}%</span>
             </div>
-            <div className="h-[2px] w-full bg-white/5 relative overflow-hidden">
-                <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${width}%` }}
-                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute top-0 bottom-0 left-0 bg-acid shadow-[0_0_8px_#D7FF2F]"
-                />
+            
+            {/* Segmented Ticks Loader */}
+            <div className="flex gap-[3px] w-full pt-1">
+                {Array.from({ length: totalSegments }).map((_, idx) => {
+                    const isFilled = idx < filledSegments;
+                    return (
+                        <div
+                            key={idx}
+                            style={{
+                                opacity: isFilled ? 1 : 0.15,
+                                backgroundColor: isFilled ? "#D7FF2F" : "#ffffff",
+                                height: "6px"
+                            }}
+                            className={`flex-1 transition-all duration-300 ${
+                                isFilled 
+                                    ? "shadow-[0_0_6px_rgba(215,255,47,0.45)]" 
+                                    : "bg-white/10"
+                            }`}
+                        />
+                    );
+                })}
             </div>
         </div>
     );
@@ -183,7 +211,7 @@ export default function AboutSection() {
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
                                 <MinimalProgressBar label="BUILDING" subtitle="EXIMARG" progressVal={31} />
-                                <MinimalProgressBar label="SCROLLING" subtitle="BLUEBLOOD" progressVal={98} />
+                                <MinimalProgressBar label="SCROLLING" subtitle="BLUEBLOOD" progressVal={80} />
                                 <MinimalProgressBar label="HOSTING" subtitle="DROPOUTHACKS" progressVal={80} />
                                 <MinimalProgressBar label="LEARNING" subtitle="PRODUCT THINKING" progressVal={90} />
                             </div>
