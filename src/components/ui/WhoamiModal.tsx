@@ -135,7 +135,7 @@ export default function WhoamiModal({ isOpen, onClose }: WhoamiModalProps) {
         <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/85 backdrop-blur-md p-2 sm:p-4">
             <div 
                 onClick={handleContainerClick}
-                className="w-full max-w-lg bg-[#0A0A0A] border border-acid/30 shadow-[0_0_50px_rgba(215,255,47,0.1)] p-4 sm:p-6 font-mono text-[10px] sm:text-xs text-silver/80 relative cursor-text max-h-[90vh] overflow-y-auto"
+                className="w-full max-w-lg bg-[#0A0A0A] border border-acid/30 shadow-[0_0_50px_rgba(215,255,47,0.1)] p-4 sm:p-6 font-mono text-[9px] xs:text-[10px] sm:text-xs text-silver/80 relative cursor-text max-h-[90vh] overflow-y-auto overflow-x-hidden"
             >
                 {/* Header */}
                 <div className="flex justify-between items-center border-b border-silver/10 pb-3 mb-4 select-none">
@@ -165,7 +165,7 @@ export default function WhoamiModal({ isOpen, onClose }: WhoamiModalProps) {
                             return (
                                 <pre 
                                     key={idx} 
-                                    className="font-mono text-[11px] sm:text-[13px] leading-[1.1] text-acid font-bold tracking-normal py-0 select-none whitespace-pre"
+                                    className="font-mono text-[7px] xs:text-[9px] sm:text-[11px] md:text-[13px] leading-[1.1] text-acid font-bold tracking-normal py-0 select-none whitespace-pre overflow-x-auto"
                                 >
                                     {line}
                                 </pre>
