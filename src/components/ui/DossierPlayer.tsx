@@ -12,7 +12,7 @@ interface Track {
 const playlist: Track[] = [
     {
         title: "LOFI_STUDY_SESSION",
-        artist: "SPOTIFY_STREAM // DIPTISH_DE",
+        artist: "AUDIO_STREAM // DIPTISH_DE",
         url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
     },
     {
@@ -102,17 +102,6 @@ export default function DossierPlayer() {
             <audio ref={audioRef} preload="auto" />
             
             <div className="flex items-center gap-4 bg-[#0A0A0A] border border-silver/10 hover:border-acid/30 px-5 py-3.5 shadow-[0_0_20px_rgba(0,0,0,0.8)] transition-all duration-300">
-                {/* Spotify status branding */}
-                <a 
-                    href="https://open.spotify.com/playlist/2ZmCesOqCcmfjJP0UBLUZ4?si=7f81dfe8510e44ec" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="absolute -top-3 right-4 bg-[#1DB954] text-black text-[7px] font-bold px-2 py-0.5 tracking-widest hover:scale-105 transition-transform flex items-center gap-1 cursor-pointer"
-                >
-                    <span className="w-1.5 h-1.5 rounded-full bg-black animate-ping" />
-                    SPOTIFY_SYNC
-                </a>
-
                 {/* Rotating Vinyl Disc */}
                 <div className="relative w-9 h-9 flex items-center justify-center">
                     <div 
@@ -134,7 +123,7 @@ export default function DossierPlayer() {
 
                 {/* Track Details */}
                 <div className="space-y-0.5 min-w-[130px] max-w-[160px]">
-                    <div className="text-[7px] text-[#1DB954] uppercase tracking-widest font-black flex items-center gap-1">
+                    <div className="text-[7px] text-acid uppercase tracking-widest font-black flex items-center gap-1">
                         <span>NOW_PLAYING</span>
                     </div>
                     <div className="text-[10px] text-white font-bold truncate tracking-wide">
