@@ -130,7 +130,7 @@ export default function Home() {
                             }}
                             className="text-silver/50"
                         >
-                            Currently building <span className="text-white">EXIMARG</span>,  
+                            Currently building <span className="text-white">EXIMARG</span> & <span className="text-white">BlueBloodExports (CTO)</span>,  
                             organizing <span className="text-white">DropoutHacks</span>,  
                             and shipping whatever refuses to leave my head.
                         </motion.p>

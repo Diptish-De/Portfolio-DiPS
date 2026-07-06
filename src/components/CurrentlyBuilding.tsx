@@ -23,6 +23,14 @@ const ventures: Venture[] = [
     },
     {
         id: "02",
+        title: "BlueBloodExports",
+        description: "Directing technology and systems as CTO for premium global export operations.",
+        statusText: "SCALING // CTO",
+        progress: 9,
+        link: "https://www.bluebloodexports.com/"
+    },
+    {
+        id: "03",
         title: "DropoutHacks",
         description: "A build festival for people who'd rather create than compete.",
         statusText: "ORGANIZING",
@@ -30,7 +38,7 @@ const ventures: Venture[] = [
         link: "https://github.com/supratim1609/dropout_hacks"
     },
     {
-        id: "03",
+        id: "04",
         title: "Moodrip",
         description: "A clothing brand inspired by Bengal, reimagined for Gen Z.",
         statusText: "OPERATIONAL",
