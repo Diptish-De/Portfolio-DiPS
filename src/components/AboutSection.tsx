@@ -49,53 +49,39 @@ function CountUp({ end, suffix = "", duration = 1.5 }: { end: number; suffix?: s
     return <span ref={elementRef}>{count}{suffix}</span>;
 }
 
-// Highly Creative Segmented Hardware Progress Indicator
-function SegmentedProgress({ label, subtitle, progressVal }: { label: string; subtitle: string; progressVal: number }) {
-    const [activeSegments, setActiveSegments] = useState(0);
+// Highly Premium Minimal Progress Indicator
+function MinimalProgressBar({ label, subtitle, progressVal }: { label: string; subtitle: string; progressVal: number }) {
+    const [width, setWidth] = useState(0);
     const elementRef = useRef<HTMLDivElement>(null);
-    const totalSegments = 10;
 
     useEffect(() => {
         const handleScroll = () => {
             if (!elementRef.current) return;
             const rect = elementRef.current.getBoundingClientRect();
             const inView = rect.top < window.innerHeight && rect.bottom >= 0;
-            if (inView && activeSegments === 0) {
-                const targetSegments = Math.round((progressVal / 100) * totalSegments);
-                let current = 0;
-                const interval = setInterval(() => {
-                    if (current < targetSegments) {
-                        current++;
-                        setActiveSegments(current);
-                    } else {
-                        clearInterval(interval);
-                    }
-                }, 100);
+            if (inView && width === 0) {
+                setWidth(progressVal);
                 window.removeEventListener("scroll", handleScroll);
             }
         };
         window.addEventListener("scroll", handleScroll);
         handleScroll();
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [progressVal, activeSegments]);
+    }, [progressVal, width]);
 
     return (
-        <div ref={elementRef} className="space-y-1.5 select-none font-mono">
+        <div ref={elementRef} className="space-y-1.5 select-none font-mono text-xs">
             <div className="flex justify-between text-[9px] text-silver/40 tracking-wider">
-                <span>{label}</span>
-                <span>{subtitle}</span>
+                <span>{label} // {subtitle}</span>
+                <span className="text-acid font-bold">{progressVal}%</span>
             </div>
-            <div className="flex gap-1.5">
-                {Array.from({ length: totalSegments }).map((_, i) => (
-                    <div
-                        key={i}
-                        className={`h-1.5 flex-1 transition-all duration-300 ${
-                            i < activeSegments
-                                ? "bg-acid shadow-[0_0_8px_#D7FF2F]"
-                                : "bg-white/5"
-                        }`}
-                    />
-                ))}
+            <div className="h-[2px] w-full bg-white/5 relative overflow-hidden">
+                <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${width}%` }}
+                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute top-0 bottom-0 left-0 bg-acid shadow-[0_0_8px_#D7FF2F]"
+                />
             </div>
         </div>
     );
@@ -196,12 +182,12 @@ export default function AboutSection() {
                                 <span className="text-silver/30">MONITOR: ACTIVE</span>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
-                                <SegmentedProgress label="BUILDING" subtitle="EXIMARG" progressVal={100} />
-                                <SegmentedProgress label="SCROLLING" subtitle="BLUEBLOOD" progressVal={90} />
-                                <SegmentedProgress label="HOSTING" subtitle="DROPOUTHACKS" progressVal={80} />
-                                <SegmentedProgress label="LEARNING" subtitle="PRODUCT THINKING" progressVal={90} />
+                                <MinimalProgressBar label="BUILDING" subtitle="EXIMARG" progressVal={100} />
+                                <MinimalProgressBar label="SCROLLING" subtitle="BLUEBLOOD" progressVal={90} />
+                                <MinimalProgressBar label="HOSTING" subtitle="DROPOUTHACKS" progressVal={80} />
+                                <MinimalProgressBar label="LEARNING" subtitle="PRODUCT THINKING" progressVal={90} />
                             </div>
-                            <SegmentedProgress label="SLEEP" subtitle="WORK IN PROGRESS" progressVal={20} />
+                            <MinimalProgressBar label="SLEEP" subtitle="WORK IN PROGRESS" progressVal={20} />
                         </div>
 
                         {/* Creative Hardware Registers Stats Grid */}
