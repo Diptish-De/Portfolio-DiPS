@@ -41,19 +41,31 @@ export default function WhoamiModal({ isOpen, onClose }: WhoamiModalProps) {
             return;
         }
 
+        setHistory([]);
+        let active = true;
         let currentLine = 0;
-        const interval = setInterval(() => {
+
+        const typeLine = () => {
+            if (!active) return;
             if (currentLine < dossierData.length) {
-                setHistory(prev => [...prev, dossierData[currentLine]]);
+                setHistory(prev => {
+                    // Prevent duplicate appending
+                    const lineToAdd = dossierData[currentLine];
+                    if (prev[prev.length - 1] === lineToAdd) return prev;
+                    return [...prev, lineToAdd];
+                });
                 currentLine++;
+                setTimeout(typeLine, 60);
             } else {
-                clearInterval(interval);
-                // Focus input once typing finishes
                 inputRef.current?.focus();
             }
-        }, 80);
+        };
 
-        return () => clearInterval(interval);
+        typeLine();
+
+        return () => {
+            active = false;
+        };
     }, [isOpen]);
 
     // Keep console scrolled to bottom
