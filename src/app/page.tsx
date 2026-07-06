@@ -58,9 +58,11 @@ function TypewriterTitle({ words }: { words: string[] }) {
     }, [displayedText, isDeleting, currentWordIdx, words]);
 
     return (
-        <span className="font-mono text-acid text-xs sm:text-sm tracking-[0.25em] uppercase font-bold min-h-[1.5rem] flex items-center justify-center">
-            {displayedText}
-            <span className="w-1.5 h-3.5 bg-acid inline-block ml-1 animate-pulse" />
+        <span className="font-mono text-acid text-xs sm:text-sm tracking-[0.25em] uppercase font-bold min-h-[1.5rem] flex items-center justify-center gap-1.5">
+            <span className="opacity-40 select-none">[</span>
+            <span>{displayedText}</span>
+            <span className="w-1.5 h-3.5 bg-acid inline-block animate-pulse ml-0.5" />
+            <span className="opacity-40 select-none">]</span>
         </span>
     );
 }
@@ -158,7 +160,7 @@ export default function Home() {
                                 }
                             }
                         }}
-                        className="text-silver/80 max-w-md font-mono text-xs sm:text-sm leading-relaxed border-l border-acid/30 pl-6 text-left backdrop-blur-sm bg-black/30 p-6 space-y-4"
+                        className="text-silver/80 max-w-md font-mono text-xs sm:text-sm leading-relaxed border-l border-r border-acid/20 px-6 text-center backdrop-blur-sm bg-black/5 p-6 space-y-4 mx-auto"
                     >
                         <motion.p
                             variants={{
