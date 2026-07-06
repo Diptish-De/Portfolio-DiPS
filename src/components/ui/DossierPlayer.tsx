@@ -25,8 +25,6 @@ const playlist: Track[] = [
 export default function DossierPlayer() {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTrackIdx, setCurrentTrackIdx] = useState(0);
-    const [coffeeFuel, setCoffeeFuel] = useState(99);
-    const [caffeineBoost, setCaffeineBoost] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const activeTrack = playlist[currentTrackIdx];
@@ -52,31 +50,6 @@ export default function DossierPlayer() {
         setIsPlaying(false);
     };
 
-    // Trigger Caffeine Boost (Fun easter egg!)
-    const triggerCaffeineBoost = () => {
-        setCoffeeFuel(99); // Refill
-        setCaffeineBoost(true);
-        
-        // Temporarily double rotation speed/animation factors on the site
-        document.documentElement.style.setProperty('--boost-multiplier', '0.4s');
-        
-        setTimeout(() => {
-            setCaffeineBoost(false);
-            document.documentElement.style.setProperty('--boost-multiplier', '2.5s');
-        }, 8000);
-    };
-
-    useEffect(() => {
-        if (!audioRef.current) return;
-        audioRef.current.src = activeTrack.url;
-        audioRef.current.load();
-        if (isPlaying) {
-            audioRef.current.play().then(() => {
-                setIsPlaying(true);
-            }).catch(() => setIsPlaying(false));
-        }
-    }, [currentTrackIdx, activeTrack.url, isPlaying]);
-
     useEffect(() => {
         const audio = audioRef.current;
         if (!audio) return;
@@ -84,13 +57,6 @@ export default function DossierPlayer() {
         audio.addEventListener("ended", handleEnded);
         return () => audio.removeEventListener("ended", handleEnded);
     }, [currentTrackIdx]);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCoffeeFuel(prev => (prev > 10 ? prev - 1 : 99));
-        }, 60000); // deplete slowly
-        return () => clearInterval(interval);
-    }, []);
 
     return (
         <div className="fixed top-8 right-8 z-[150] font-mono select-none">
@@ -104,7 +70,7 @@ export default function DossierPlayer() {
                             isPlaying ? "animate-spin" : ""
                         }`}
                         style={{ 
-                            animationDuration: caffeineBoost ? "0.8s" : "3.5s",
+                            animationDuration: "3.5s",
                             animationTimingFunction: "linear",
                             animationIterationCount: "infinite"
                         }}
@@ -147,67 +113,7 @@ export default function DossierPlayer() {
                         <SkipForward className="w-3.5 h-3.5" />
                     </button>
                 </div>
-
-                {/* Divider */}
-                <div className="h-6 w-px bg-silver/10" />
-
-                {/* Coffee Mug & Rising Evaporating Steam */}
-                <div 
-                    onClick={triggerCaffeineBoost}
-                    className="flex items-center gap-2.5 text-silver/40 hover:text-acid transition-colors cursor-pointer relative group/coffee py-1"
-                    title="Caffeine Boost! (Click to Brew)"
-                >
-                    {/* Steam Particles */}
-                    <div className="absolute -top-3 left-1 flex gap-0.5 pointer-events-none opacity-60">
-                        <span className={`w-0.5 h-2 bg-silver/40 rounded-full block ${isPlaying || caffeineBoost ? "animate-steam-1" : ""}`} />
-                        <span className={`w-0.5 h-2.5 bg-silver/50 rounded-full block ${isPlaying || caffeineBoost ? "animate-steam-2" : ""}`} />
-                        <span className={`w-0.5 h-2 bg-silver/40 rounded-full block ${isPlaying || caffeineBoost ? "animate-steam-3" : ""}`} />
-                    </div>
-
-                    {/* Custom Vector Coffee Mug */}
-                    <svg className={`w-4 h-4 transition-transform duration-300 ${caffeineBoost ? "scale-125 text-acid animate-bounce" : "group-hover/coffee:scale-110"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        {/* Cup Body */}
-                        <path d="M17 8H6v7c0 2.2 1.8 4 4 4h3c2.2 0 4-1.8 4-4V8z" />
-                        {/* Handle */}
-                        <path d="M17 10h2c1.7 0 3 1.3 3 3s-1.3 3-3 3h-2" />
-                    </svg>
-
-                    <span className={`text-[9px] font-bold transition-all ${caffeineBoost ? "text-acid font-black text-xs scale-105" : ""}`}>
-                        {caffeineBoost ? "BOOSTED!" : `${coffeeFuel}%`}
-                    </span>
-                </div>
             </div>
-            
-            {/* Embedded styles for steam animations */}
-            <style jsx global>{`
-                @keyframes steamMove1 {
-                    0% { transform: translateY(0) scaleX(1); opacity: 0; }
-                    30% { opacity: 0.6; }
-                    80% { transform: translateY(-8px) scaleX(1.3); opacity: 0.2; }
-                    100% { transform: translateY(-12px) scaleX(0.8); opacity: 0; }
-                }
-                @keyframes steamMove2 {
-                    0% { transform: translateY(0) scaleX(1); opacity: 0; }
-                    30% { opacity: 0.8; }
-                    70% { transform: translateY(-10px) scaleX(1.5); opacity: 0.3; }
-                    100% { transform: translateY(-15px) scaleX(0.7); opacity: 0; }
-                }
-                @keyframes steamMove3 {
-                    0% { transform: translateY(0) scaleX(1); opacity: 0; }
-                    30% { opacity: 0.5; }
-                    70% { transform: translateY(-7px) scaleX(1.2); opacity: 0.2; }
-                    100% { transform: translateY(-11px) scaleX(0.8); opacity: 0; }
-                }
-                .animate-steam-1 {
-                    animation: steamMove1 2s infinite linear;
-                }
-                .animate-steam-2 {
-                    animation: steamMove2 2.5s infinite linear 0.4s;
-                }
-                .animate-steam-3 {
-                    animation: steamMove3 2.2s infinite linear 0.8s;
-                }
-            `}</style>
         </div>
     );
 }
