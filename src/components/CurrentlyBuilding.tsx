@@ -18,7 +18,7 @@ const ventures: Venture[] = [
         title: "EXIMARG",
         description: "Making international trade less painful with AI.",
         statusText: "DEVELOPING",
-        progress: 8,
+        progress: 3.1,
         link: "https://eximarg.com"
     },
     {
@@ -26,7 +26,7 @@ const ventures: Venture[] = [
         title: "BlueBloodExports",
         description: "Directing technology and systems as CTO for premium global export operations.",
         statusText: "SCALING // CTO",
-        progress: 9,
+        progress: 9.8,
         link: "https://www.bluebloodexports.com/"
     },
     {

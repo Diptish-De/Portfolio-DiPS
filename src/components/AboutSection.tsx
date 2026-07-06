@@ -182,8 +182,8 @@ export default function AboutSection() {
                                 <span className="text-silver/30">MONITOR: ACTIVE</span>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
-                                <MinimalProgressBar label="BUILDING" subtitle="EXIMARG" progressVal={100} />
-                                <MinimalProgressBar label="SCROLLING" subtitle="BLUEBLOOD" progressVal={90} />
+                                <MinimalProgressBar label="BUILDING" subtitle="EXIMARG" progressVal={31} />
+                                <MinimalProgressBar label="SCROLLING" subtitle="BLUEBLOOD" progressVal={98} />
                                 <MinimalProgressBar label="HOSTING" subtitle="DROPOUTHACKS" progressVal={80} />
                                 <MinimalProgressBar label="LEARNING" subtitle="PRODUCT THINKING" progressVal={90} />
                             </div>
