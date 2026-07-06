@@ -48,7 +48,7 @@ export default function CaffeineMonitor() {
                 }
                 return 12;
             });
-        }, 1200); // 1.2s per percent -> depletes in about 1.5 mins
+        }, 600); // 0.6s per percent -> depletes in about 50 seconds
         
         return () => clearInterval(interval);
     }, []);
