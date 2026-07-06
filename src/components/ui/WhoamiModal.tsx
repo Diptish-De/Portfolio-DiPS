@@ -82,22 +82,28 @@ export default function WhoamiModal({ isOpen, onClose }: WhoamiModalProps) {
 
                 {/* Console Output */}
                 <div className="space-y-2 min-h-[220px] select-text">
-                    {typedLines.map((line, idx) => (
-                        <div 
-                            key={idx} 
-                            className={
-                                line.startsWith("CODENAME") || line.startsWith("REAL NAME") || line.startsWith("OCCUPATION") || line.startsWith("CURRENT") || line.startsWith("STATUS")
-                                    ? "text-white font-bold"
-                                    : line.startsWith("Connection")
-                                    ? "text-acid font-bold"
-                                    : line.includes("█")
-                                    ? "text-acid/90 font-black"
-                                    : "text-silver/60"
-                            }
-                        >
-                            {line}
-                        </div>
-                    ))}
+                    {typedLines.map((line, idx) => {
+                        if (!line) return null;
+                        const isWhite = line.startsWith("CODENAME") || line.startsWith("REAL NAME") || line.startsWith("OCCUPATION") || line.startsWith("CURRENT") || line.startsWith("STATUS");
+                        const isAcid = line.startsWith("Connection");
+                        const isAscii = line.includes("█");
+                        return (
+                            <div 
+                                key={idx} 
+                                className={
+                                    isWhite
+                                        ? "text-white font-bold"
+                                        : isAcid
+                                        ? "text-acid font-bold"
+                                        : isAscii
+                                        ? "text-acid/90 font-black"
+                                        : "text-silver/60"
+                                }
+                            >
+                                {line}
+                            </div>
+                        );
+                    })}
                     <div className="w-2 h-4 bg-acid/80 inline-block animate-pulse ml-0.5" />
                 </div>
             </div>
