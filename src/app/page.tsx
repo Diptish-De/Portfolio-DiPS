@@ -181,7 +181,7 @@ export default function Home() {
                         </motion.p>
                     </motion.div>
 
-                    <div className="flex flex-col items-center gap-3 justify-center mt-2 select-none">
+                    <div className="flex flex-wrap gap-4 justify-center mt-2">
                         <div onClick={scrollToDossier}>
                             <CyberButton>
                                 <span className="flex items-center gap-2">
@@ -189,9 +189,6 @@ export default function Home() {
                                 </span>
                             </CyberButton>
                         </div>
-                        <span className="font-mono text-[9px] text-acid/60 animate-pulse uppercase tracking-wider">
-                            [ SYSTEM_HINT: TYPE &apos;whoami&apos; ANYWHERE TO LAUNCH SECURE ACCESS SHELL ]
-                        </span>
                     </div>
                 </div>
 
