@@ -15,6 +15,7 @@ import ExplodingText from "@/components/hero/ExplodingText";
 import LiquidDistortion from "@/components/hero/LiquidDistortion";
 import SystemEntryOverlay from "@/components/hero/SystemEntryOverlay";
 import WhoamiModal from "@/components/ui/WhoamiModal";
+import DossierPlayer from "@/components/ui/DossierPlayer";
 import { ArrowRight, Terminal } from "lucide-react";
 
 // Typewriter Animation Component for rotating titles
@@ -96,6 +97,7 @@ export default function Home() {
     return (
         <>
             <SystemEntryOverlay />
+            <DossierPlayer />
             <WhoamiModal isOpen={whoamiOpen} onClose={() => setWhoamiOpen(false)} />
             <GridBackground />
             <LiquidDistortion />
