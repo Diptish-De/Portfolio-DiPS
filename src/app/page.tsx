@@ -8,11 +8,13 @@ import Footer from "@/components/Footer";
 import GravityStrings from "@/components/hero/GravityStrings";
 import ExplodingText from "@/components/hero/ExplodingText";
 import LiquidDistortion from "@/components/hero/LiquidDistortion"; // Import
+import SystemEntryOverlay from "@/components/hero/SystemEntryOverlay";
 import { ArrowRight, Terminal } from "lucide-react";
 
 export default function Home() {
     return (
         <>
+            <SystemEntryOverlay />
             <GridBackground />
             <LiquidDistortion />
 
