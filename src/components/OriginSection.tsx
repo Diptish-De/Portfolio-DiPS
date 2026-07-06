@@ -53,7 +53,7 @@ export default function OriginSection() {
                 </div>
 
                 {/* Vertical Line */}
-                <div className="absolute left-8 md:left-1/2 top-[220px] bottom-10 w-px bg-silver/10 -translate-x-1/2 hidden md:block">
+                <div className="absolute left-6 md:left-1/2 top-[120px] sm:top-[220px] bottom-10 w-px bg-silver/10 -translate-x-1/2">
                     <motion.div
                         style={{ scaleY }}
                         className="w-full bg-acid origin-top h-full shadow-[0_0_10px_#D7FF2F]"
@@ -72,10 +72,10 @@ export default function OriginSection() {
                                 }`}
                             >
                                 {/* Center Node */}
-                                <div className="absolute left-0 md:left-1/2 top-1.5 w-3 h-3 bg-[#050505] border-2 border-acid rotate-45 -translate-x-1/2 z-20 hidden md:block" />
+                                <div className="absolute left-6 md:left-1/2 top-6 md:top-1.5 w-3 h-3 bg-[#050505] border-2 border-acid rotate-45 -translate-x-1/2 z-20" />
 
                                 {/* Side Panel Content */}
-                                <div className="flex-1 w-full pl-6 md:pl-0 md:text-left">
+                                <div className="flex-1 w-full pl-12 md:pl-0 md:text-left">
                                     <div className={`p-5 sm:p-8 bg-[#0a0a0a] border border-silver/10 hover:border-acid/30 transition-colors duration-500 max-w-md ${
                                         isEven ? "md:ml-auto md:text-right" : "md:mr-auto"
                                     }`}>
