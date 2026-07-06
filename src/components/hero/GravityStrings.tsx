@@ -33,11 +33,59 @@ export default function GravityStrings() {
             440.00, 523.25, 587.33, 659.25, 783.99, // High oct
         ];
 
-        const initAudio = () => {
-            if (!audioContextRef.current) {
-                audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+        // PRE-INITIALIZE AudioContext immediately on component mount
+        if (!audioContextRef.current) {
+            audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+
+            // Play silent warmup tone to pre-warm audio engine (reduces first-sound latency)
+            try {
+                const warmup = audioContextRef.current.createOscillator();
+                const gain = audioContextRef.current.createGain();
+                gain.gain.value = 0; // Silent
+                warmup.connect(gain);
+                gain.connect(audioContextRef.current.destination);
+                warmup.start();
+                warmup.stop(audioContextRef.current.currentTime + 0.001);
+            } catch (e) {
+                // Silently fail if blocked
+            }
+        }
+
+
+        // AGGRESSIVE resume strategy - try on EVERY interaction until running
+        let isAudioReady = false;
+
+        const aggressiveResume = async () => {
+            if (!audioContextRef.current) return;
+
+            if (audioContextRef.current.state === 'suspended') {
+                try {
+                    await audioContextRef.current.resume();
+                    if ((audioContextRef.current.state as string) === 'running') {
+                        isAudioReady = true;
+                        // Remove all listeners once confirmed running
+                        document.removeEventListener('click', aggressiveResume);
+                        document.removeEventListener('touchstart', aggressiveResume);
+                        document.removeEventListener('keydown', aggressiveResume);
+                        document.removeEventListener('mousemove', aggressiveResume);
+                    }
+                } catch (e) {
+                    // Silently retry on next interaction
+                }
+            } else if (audioContextRef.current.state === 'running') {
+                isAudioReady = true;
             }
         };
+
+        // Attach to MULTIPLE event types (not just click) - NO {once: true} to keep retrying
+        document.addEventListener('click', aggressiveResume);
+        document.addEventListener('touchstart', aggressiveResume);
+        document.addEventListener('keydown', aggressiveResume);
+        document.addEventListener('mousemove', aggressiveResume);
+
+        // Also try immediately
+        aggressiveResume();
+
 
         const playStringSound = (index: number, velocity: number) => {
             if (!audioContextRef.current) return;
@@ -56,7 +104,6 @@ export default function GravityStrings() {
             osc.frequency.setValueAtTime(frequency, ctx.currentTime);
 
             // Velocity affects volume and brightness
-            // Clamp velocity impact
             const intensity = Math.min(Math.abs(velocity) * 0.1, 1);
 
             gainNode.gain.setValueAtTime(0, ctx.currentTime);
@@ -113,7 +160,6 @@ export default function GravityStrings() {
                     this.y = mouse.y;
 
                     // Trigger sound on initial "hard" contact (pluck)
-                    // Simple logic: If velocity spikes, play sound
                     if (!this.plucked && Math.abs(this.velX) > 0.5) {
                         playStringSound(this.index, this.velX);
                         this.plucked = true; // Debounce
@@ -164,7 +210,6 @@ export default function GravityStrings() {
             if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
                 mouse.x = x;
                 mouse.y = y;
-                initAudio();
             } else {
                 // Reset if outside
                 mouse.x = -1000;
@@ -202,6 +247,10 @@ export default function GravityStrings() {
         return () => {
             window.removeEventListener("resize", onResize);
             window.removeEventListener("mousemove", onMouseMove);
+            document.removeEventListener('click', aggressiveResume);
+            document.removeEventListener('touchstart', aggressiveResume);
+            document.removeEventListener('keydown', aggressiveResume);
+            document.removeEventListener('mousemove', aggressiveResume);
             cancelAnimationFrame(animationFrameId);
             if (audioContextRef.current) {
                 audioContextRef.current.close();

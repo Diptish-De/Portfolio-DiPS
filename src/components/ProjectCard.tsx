@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { GlitchText } from "./ui/GlitchText";
+import GlitchText from "./ui/GlitchText";
 
 interface ProjectCardProps {
     title: string;
