@@ -121,24 +121,25 @@ export default function Home() {
                     <span>DOSSIER_V2.5</span>
                 </div>
 
-                <div className="z-10 flex flex-col items-center text-center gap-8 max-w-4xl">
-                    <div className="space-y-4">
+                <div className="z-10 flex flex-col items-center text-center gap-10 max-w-4xl">
+                    <div className="space-y-6 w-full">
                         <h2 className="font-mono text-silver/40 text-[10px] tracking-[0.3em] uppercase">
                             PROFILE // ONLINE
                         </h2>
-                        <div className="flex flex-col gap-0 leading-[0.85] text-center items-center">
+                        <div className="flex flex-col gap-6 leading-[0.85] text-center items-center w-full">
                             <ExplodingText text="DIPTISH" size="xl" className="font-space tracking-tighter" />
+                            
+                            {/* Rotating Typewriter Title Element in between DIPTISH and DE */}
+                            <div className="h-8 flex items-center justify-center py-6 select-none">
+                                <TypewriterTitle words={titles} />
+                            </div>
+
                             <ExplodingText text="DE" size="xl" className="font-space tracking-tighter" />
                         </div>
-                        
-                        {/* Rotating Typewriter Title Element */}
-                        <div className="h-6 flex items-center justify-center pt-2">
-                            <TypewriterTitle words={titles} />
-                        </div>
 
-                        {/* Highly Prominent Console Prompt Message */}
-                        <div className="pt-2 flex flex-col items-center select-none">
-                            <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-acid/10 border border-acid/30 text-acid text-[9px] sm:text-[10.5px] font-mono uppercase tracking-[0.2em] shadow-[0_0_15px_rgba(215,255,47,0.05)]">
+                        {/* Highly Prominent Console Prompt Message with generous padding */}
+                        <div className="pt-10 pb-6 flex flex-col items-center select-none">
+                            <span className="inline-flex items-center gap-2 px-4 py-2 bg-acid/10 border border-acid/20 text-acid text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] shadow-[0_0_20px_rgba(215,255,47,0.04)]">
                                 <span className="w-1.5 h-1.5 rounded-full bg-acid animate-ping shadow-[0_0_8px_#D7FF2F]" />
                                 Console Alert: Type &quot;whoami&quot; anywhere to launch secure shell terminal
                             </span>
