@@ -38,16 +38,18 @@ body {
   font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  cursor: none;
-  /* Hide default cursor */
 }
 
-a,
-button,
-input,
-textarea {
-  cursor: none;
-  /* Ensure custom cursor is used */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a,
+  button,
+  input,
+  textarea {
+    cursor: none;
+  }
 }
 
 /* Utilities */
