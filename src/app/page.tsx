@@ -17,19 +17,55 @@ import SystemEntryOverlay from "@/components/hero/SystemEntryOverlay";
 import WhoamiModal from "@/components/ui/WhoamiModal";
 import { ArrowRight, Terminal } from "lucide-react";
 
+// Typewriter Animation Component for rotating titles
+function TypewriterTitle({ words }: { words: string[] }) {
+    const [currentWordIdx, setCurrentWordIdx] = useState(0);
+    const [displayedText, setDisplayedText] = useState("");
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    const typingSpeed = 100;
+    const deletingSpeed = 40;
+    const pauseTime = 1600;
+
+    useEffect(() => {
+        let timer: NodeJS.Timeout;
+        const activeWord = words[currentWordIdx];
+
+        if (isDeleting) {
+            timer = setTimeout(() => {
+                setDisplayedText(activeWord.substring(0, displayedText.length - 1));
+            }, deletingSpeed);
+        } else {
+            timer = setTimeout(() => {
+                setDisplayedText(activeWord.substring(0, displayedText.length + 1));
+            }, typingSpeed);
+        }
+
+        // Deleting transition trigger
+        if (!isDeleting && displayedText === activeWord) {
+            timer = setTimeout(() => setIsDeleting(true), pauseTime);
+        }
+        
+        // Next word trigger
+        if (isDeleting && displayedText === "") {
+            setIsDeleting(false);
+            setCurrentWordIdx((prev) => (prev + 1) % words.length);
+        }
+
+        return () => clearTimeout(timer);
+    }, [displayedText, isDeleting, currentWordIdx, words]);
+
+    return (
+        <span className="font-mono text-acid text-xs sm:text-sm tracking-[0.25em] uppercase font-bold min-h-[1.5rem] flex items-center justify-center">
+            {displayedText}
+            <span className="w-1.5 h-3.5 bg-acid inline-block ml-1 animate-pulse" />
+        </span>
+    );
+}
+
 export default function Home() {
     const titles = ["PRODUCT ENGINEER", "DESIGNER", "BUILDER"];
-    const [titleIdx, setTitleIdx] = useState(0);
     const [whoamiOpen, setWhoamiOpen] = useState(false);
-
-    // Rotating Title animation loop
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setTitleIdx((prev) => (prev + 1) % titles.length);
-        }, 2500);
-        return () => clearInterval(interval);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     // whoami Easter Egg Key Listener
     useEffect(() => {
@@ -86,17 +122,9 @@ export default function Home() {
                             <ExplodingText text="DE" size="xl" className="font-space tracking-tighter" />
                         </div>
                         
-                        {/* Rotating Title Element */}
-                        <div className="h-6 overflow-hidden relative flex items-center justify-center pt-2">
-                            <motion.div
-                                key={titleIdx}
-                                initial={{ opacity: 0, y: 12, filter: "blur(2px)" }}
-                                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
-                                className="font-mono text-acid text-xs sm:text-sm tracking-[0.25em] uppercase font-bold"
-                            >
-                                {titles[titleIdx]}
-                            </motion.div>
+                        {/* Rotating Typewriter Title Element */}
+                        <div className="h-6 flex items-center justify-center pt-2">
+                            <TypewriterTitle words={titles} />
                         </div>
                     </div>
 
