@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface ExplodingTextProps {
@@ -9,21 +9,29 @@ interface ExplodingTextProps {
     size?: "sm" | "md" | "lg" | "xl";
 }
 
+function calcFontSize(sizeKey: "sm" | "md" | "lg" | "xl", width: number) {
+    const isMobile = width < 640;
+    const isTablet = width < 1024;
+    const map = {
+        sm: isMobile ? 24 : 40,
+        md: isMobile ? 36 : 60,
+        lg: isMobile ? 48 : 80,
+        xl: isMobile ? 50 : isTablet ? 80 : 120
+    };
+    return map[sizeKey];
+}
+
 export default function ExplodingText({ text, className, size = "md" }: ExplodingTextProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [fontSize, setFontSize] = useState(120); // SSR default
 
-    // Font size mapping - responsive based on viewport
-    const getResponsiveFontSize = (sizeKey: "sm" | "md" | "lg" | "xl") => {
-        const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
-        const isTablet = typeof window !== "undefined" && window.innerWidth < 1024;
-        const fontSizeMap = {
-            sm: isMobile ? 24 : 40,
-            md: isMobile ? 36 : 60,
-            lg: isMobile ? 48 : 80,
-            xl: isMobile ? 55 : isTablet ? 80 : 120
-        };
-        return fontSizeMap[sizeKey];
-    };
+    // Sync font size to viewport on mount and resize
+    useEffect(() => {
+        const update = () => setFontSize(calcFontSize(size, window.innerWidth));
+        update();
+        window.addEventListener("resize", update);
+        return () => window.removeEventListener("resize", update);
+    }, [size]);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -33,74 +41,55 @@ export default function ExplodingText({ text, className, size = "md" }: Explodin
         if (!ctx) return;
 
         let animationFrameId: number;
-        // We need a fixed size for the canvas to control density, but responsive is better.
-        // Let's use parent container size.
-
         let width = 0;
         let height = 0;
 
-        // Physics Constants
         const MOUSE_RADIUS = 100;
-        const DISPERSION_FORCE = 30; // Explosive power
+        const DISPERSION_FORCE = 30;
         const RETURN_SPEED = 0.08;
         const FRICTION = 0.90;
 
         const mouse = { x: -1000, y: -1000 };
 
         interface Particle {
-            x: number;
-            y: number;
-            originX: number;
-            originY: number;
-            vx: number;
-            vy: number;
-            size: number;
-            color: string;
+            x: number; y: number;
+            originX: number; originY: number;
+            vx: number; vy: number;
+            size: number; color: string;
         }
 
         const particles: Particle[] = [];
 
         const init = () => {
-            // Measure parent
             const parent = canvas.parentElement;
             if (parent) {
                 width = parent.clientWidth;
-                height = parent.clientHeight || 200; // Fallback
+                height = parent.clientHeight || 200;
             }
             canvas.width = width;
             canvas.height = height;
 
-            // Draw Text to Canvas (Hidden)
-            // We use a temporary context logic or just clear/draw/read on main
             ctx.fillStyle = "#ffffff";
-            ctx.font = `900 ${getResponsiveFontSize(size)}px 'Space Grotesk', monospace`; // Try to match font
+            ctx.font = `900 ${fontSize}px 'Space Grotesk', monospace`;
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             ctx.fillText(text, width / 2, height / 2);
 
-            // Get Pixel Data
             const imageData = ctx.getImageData(0, 0, width, height);
-            ctx.clearRect(0, 0, width, height); // Clear for animation
+            ctx.clearRect(0, 0, width, height);
 
             particles.length = 0;
-
-            const step = 3; // Better density for sharper display
+            const step = 3;
 
             for (let y = 0; y < height; y += step) {
                 for (let x = 0; x < width; x += step) {
                     const index = (y * width + x) * 4;
                     const alpha = imageData.data[index + 3];
-
                     if (alpha > 128) {
                         particles.push({
-                            x: x,
-                            y: y,
-                            originX: x,
-                            originY: y,
-                            vx: 0,
-                            vy: 0,
-                            size: 2.5, // Sleek blocky pixel layout
-                            color: "#e2e2e2" // Silver
+                            x, y, originX: x, originY: y,
+                            vx: 0, vy: 0,
+                            size: 2.5, color: "#e2e2e2"
                         });
                     }
                 }
@@ -115,38 +104,26 @@ export default function ExplodingText({ text, className, size = "md" }: Explodin
                 const dy = mouse.y - p.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
-                // Explosion Logic
                 if (dist < MOUSE_RADIUS) {
                     const angle = Math.atan2(dy, dx);
                     const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS;
                     const explosion = force * DISPERSION_FORCE;
-
                     p.vx -= Math.cos(angle) * explosion;
                     p.vy -= Math.sin(angle) * explosion;
                 }
 
-                // Return Logic
                 const ox = p.originX - p.x;
                 const oy = p.originY - p.y;
-
                 p.vx += ox * RETURN_SPEED;
                 p.vy += oy * RETURN_SPEED;
-
-                // Physics
                 p.vx *= FRICTION;
                 p.vy *= FRICTION;
                 p.x += p.vx;
                 p.y += p.vy;
 
-                // Reactive color based on displacement from origin
                 const displacement = Math.sqrt(ox * ox + oy * oy);
-                if (displacement > 2) {
-                    p.color = "#D7FF2F"; // Acid green when active
-                } else {
-                    p.color = "#E5E7EB"; // Crisp off-white when resting
-                }
+                p.color = displacement > 2 ? "#D7FF2F" : "#E5E7EB";
 
-                // Draw
                 ctx.fillStyle = p.color;
                 ctx.fillRect(p.x, p.y, p.size, p.size);
             });
@@ -160,17 +137,26 @@ export default function ExplodingText({ text, className, size = "md" }: Explodin
             mouse.y = e.clientY - rect.top;
         };
 
-        // Handle Window Resize 
-        const onResize = () => {
-            init(); // Re-sample text
+        // Also handle touch for mobile
+        const onTouchMove = (e: TouchEvent) => {
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            mouse.x = touch.clientX - rect.left;
+            mouse.y = touch.clientY - rect.top;
         };
+
+        const onTouchEnd = () => {
+            mouse.x = -1000;
+            mouse.y = -1000;
+        };
+
+        const onResize = () => init();
 
         window.addEventListener("resize", onResize);
         window.addEventListener("mousemove", onMouseMove);
+        canvas.addEventListener("touchmove", onTouchMove, { passive: true });
+        canvas.addEventListener("touchend", onTouchEnd);
 
-        // Initial delay to ensure font loaded? 
-        // Just run init immediately, if font not loaded it might be default.
-        // Better to use document.fonts.ready if possible but simple init is mostly fine.
         document.fonts.ready.then(() => {
             init();
             update();
@@ -179,18 +165,20 @@ export default function ExplodingText({ text, className, size = "md" }: Explodin
         return () => {
             window.removeEventListener("resize", onResize);
             window.removeEventListener("mousemove", onMouseMove);
+            canvas.removeEventListener("touchmove", onTouchMove);
+            canvas.removeEventListener("touchend", onTouchEnd);
             cancelAnimationFrame(animationFrameId);
         };
-    }, [text, size]);
+    }, [text, size, fontSize]);
 
     return (
-        <div className={cn("relative w-full overflow-visible flex items-center justify-center", className)} style={{ height: getResponsiveFontSize(size) * 1.5 }}>
+        <div className={cn("relative w-full overflow-visible flex items-center justify-center", className)} style={{ height: fontSize * 1.5 }}>
             <canvas
                 ref={canvasRef}
                 className="absolute inset-0 z-10"
             />
             {/* Invisible accessible text */}
-            <span className="opacity-0 select-none pointer-events-none font-bold text-transparent" style={{ fontSize: getResponsiveFontSize(size) }}>
+            <span className="opacity-0 select-none pointer-events-none font-bold text-transparent" style={{ fontSize }}>
                 {text}
             </span>
         </div>

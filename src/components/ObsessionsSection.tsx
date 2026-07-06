@@ -31,7 +31,7 @@ const itemVariants = {
 
 export default function ObsessionsSection() {
     return (
-        <section className="relative py-32 bg-background border-t border-silver/10 overflow-hidden">
+        <section className="relative py-16 sm:py-32 bg-background border-t border-silver/10 overflow-hidden">
             <div className="container mx-auto px-6 max-w-4xl">
                 {/* Header */}
                 <div className="mb-20 flex flex-col gap-2">

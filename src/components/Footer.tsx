@@ -3,7 +3,7 @@ import CyberButton from "./ui/CyberButton";
 
 export default function Footer() {
     return (
-        <footer className="relative py-20 bg-background border-t border-silver/10 overflow-hidden">
+        <footer className="relative py-12 sm:py-20 bg-background border-t border-silver/10 overflow-hidden">
             <div className="container mx-auto px-6 flex flex-col items-center text-center gap-12 relative z-10">
 
                 {/* Call to Action */}

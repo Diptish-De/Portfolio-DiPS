@@ -147,7 +147,7 @@ export default function AboutSection() {
     const lineNumbers = Array.from({ length: 22 }, (_, i) => String(i + 1).padStart(2, "0"));
 
     return (
-        <section ref={containerRef} className="relative min-h-screen flex items-center justify-center py-32 overflow-hidden bg-background">
+        <section ref={containerRef} className="relative min-h-screen flex items-center justify-center py-16 sm:py-32 overflow-hidden bg-background">
             <div className="container px-4 md:px-6 relative z-10 flex flex-col md:flex-row items-stretch gap-8 md:gap-16 max-w-6xl mx-auto">
 
                 {/* Left Side: Creative Editor Dossier Layout */}
@@ -255,8 +255,8 @@ export default function AboutSection() {
                 {/* Visual Side */}
                 <motion.div style={{ y: y2, opacity }} className="flex-1 relative aspect-square w-full max-w-sm sm:max-w-md self-center">
                     {/* Social Icons + Live Label */}
-                    <div className="absolute -top-20 left-0 z-10 flex flex-col md:flex-row gap-4 md:items-center">
-                        <div className="flex gap-4">
+                    <div className="absolute -top-20 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 z-10 flex flex-col md:flex-row gap-3 items-center justify-center w-full md:w-auto">
+                        <div className="flex gap-3 justify-center">
                             {[
                                 { Icon: Github, name: "GitHub", desc: "Where code lives.", href: "https://github.com/Diptish-De" },
                                 { Icon: Linkedin, name: "LinkedIn", desc: "Where opportunities happen.", href: "https://linkedin.com/in/diptish-de" },

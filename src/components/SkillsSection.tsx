@@ -51,7 +51,7 @@ function MarqueeRow({ items, reverse = false, colorClass = "hover:text-acid" }: 
 
 export default function SkillsSection() {
     return (
-        <section className="relative py-24 overflow-hidden bg-black border-y border-silver/10">
+        <section className="relative py-16 sm:py-24 overflow-hidden bg-black border-y border-silver/10">
             <div className="absolute inset-0 bg-acid/5 mix-blend-overlay pointer-events-none" />
 
             <div className="container mx-auto px-6 mb-12 relative z-10">

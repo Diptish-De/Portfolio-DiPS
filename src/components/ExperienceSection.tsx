@@ -39,7 +39,7 @@ export default function ExperienceSection() {
     });
 
     return (
-        <section ref={containerRef} className="relative min-h-screen py-32 bg-background overflow-hidden">
+        <section ref={containerRef} className="relative min-h-screen py-16 sm:py-32 bg-background overflow-hidden">
 
             {/* Central Progress Line */}
             <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-[1px] bg-silver/10 h-full">

@@ -156,7 +156,7 @@ export default function CurrentlyBuilding() {
             </div>
 
             {/* Mobile Viewport Scrollable Stack */}
-            <section className="md:hidden py-24 bg-[#030303] border-t border-silver/10 px-6">
+            <section className="md:hidden py-16 sm:py-24 bg-[#030303] border-t border-silver/10 px-6">
                 <div className="container mx-auto">
                     {/* Header */}
                     <div className="mb-12 flex flex-col gap-2 select-none">
