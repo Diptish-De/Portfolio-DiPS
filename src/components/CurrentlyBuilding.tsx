@@ -166,12 +166,12 @@ export default function CurrentlyBuilding() {
                         </h2>
                     </div>
 
-                    {/* Vertically Stacked List for Small Screens */}
-                    <div className="space-y-6">
+                    {/* Horizontally Scrollable Swipe Carousel for Small Screens */}
+                    <div className="flex gap-6 overflow-x-auto pb-6 pt-2 scrollbar-none snap-x snap-mandatory -mx-6 px-6">
                         {ventures.map((venture) => (
                             <div
                                 key={venture.id}
-                                className="group bg-black/60 border border-silver/10 p-6 flex flex-col justify-between relative shadow-lg"
+                                className="group bg-black/60 border border-silver/10 p-6 flex flex-col justify-between relative shadow-lg shrink-0 w-[290px] h-[330px] snap-center"
                             >
                                 <div className="flex justify-between items-start mb-4">
                                     <span className="font-mono text-xs text-silver/30 font-bold">
@@ -183,15 +183,15 @@ export default function CurrentlyBuilding() {
                                 </div>
 
                                 <div className="space-y-2 mb-6">
-                                    <h3 className="font-space text-xl font-bold uppercase text-white">
+                                    <h3 className="font-space text-lg font-bold uppercase text-white line-clamp-1">
                                         {venture.title}
                                     </h3>
-                                    <p className="text-silver/50 font-mono text-xs leading-relaxed">
+                                    <p className="text-silver/50 font-mono text-xs leading-relaxed line-clamp-4">
                                         {venture.description}
                                     </p>
                                 </div>
 
-                                <div className="border-t border-silver/10 pt-4 flex justify-between items-center">
+                                <div className="border-t border-silver/10 pt-4 flex justify-between items-center mt-auto">
                                     <div className="space-y-1">
                                         <span className="font-mono text-[8px] text-silver/40 block">COMPLETION_TRACK</span>
                                         {renderProgressBar(venture.progress)}

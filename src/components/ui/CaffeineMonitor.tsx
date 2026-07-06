@@ -60,7 +60,7 @@ export default function CaffeineMonitor() {
         <>
             {/* Screen Dissolve Overlay */}
             <div 
-                className="fixed inset-0 bg-black pointer-events-none z-[140] transition-opacity duration-1000"
+                className="fixed inset-0 bg-black pointer-events-none z-[140] transition-opacity duration-1000 hidden sm:block"
                 style={{ opacity: dimOpacity }}
             />
 
