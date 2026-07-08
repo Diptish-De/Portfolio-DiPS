@@ -112,27 +112,35 @@ export default function Home() {
             <LiquidDistortion />
 
             {/* Main Interactive Dossier Container */}
-            <main className="relative min-h-screen flex flex-col items-center justify-center p-4 sm:p-8 md:p-20 overflow-hidden liquid-hero">
+            <main className="relative min-h-screen flex flex-col items-center justify-center pt-16 pb-8 px-4 sm:p-8 md:p-20 overflow-hidden liquid-hero">
                 <GravityStrings />
 
                 {/* Top Left System Info */}
-                <div className="absolute top-4 left-4 sm:top-8 sm:left-8 hidden sm:flex items-center gap-2 font-mono text-[10px] text-silver/40">
-                    <span className="w-1.5 h-1.5 rounded-full bg-acid animate-pulse shadow-[0_0_8px_#D7FF2F]" />
-                    <span>DiPS_MAINFRAME // SYS_ONLINE</span>
-                    <span className="text-acid">::</span>
-                    <span>DOSSIER_V2.5</span>
+                <div className="absolute top-4 left-4 right-4 sm:right-auto flex items-center justify-between sm:justify-start gap-2 font-mono text-[9px] sm:text-[10px] text-silver/40">
+                    <div className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-acid animate-pulse shadow-[0_0_8px_#D7FF2F]" />
+                        <span>DiPS_MAINFRAME // SYS_ONLINE</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span className="text-acid">::</span>
+                        <span>DOSSIER_V2.5</span>
+                    </div>
                 </div>
 
                 {/* Main Interactive Dossier Grid */}
-                <div className="z-10 w-full max-w-7xl px-2 sm:px-4 flex flex-col md:grid md:grid-cols-12 md:gap-8 md:items-center py-4 sm:py-6 relative">
+                <div className="z-10 w-full max-w-7xl px-2 sm:px-4 flex flex-col md:grid md:grid-cols-12 md:gap-8 md:items-center py-4 sm:py-6 relative gap-6 md:gap-0">
                     
                     {/* Left Lore Block (Column 1 - md:col-span-3) */}
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="md:col-span-3 font-mono text-[10px] sm:text-xs md:text-sm text-silver/60 text-left md:text-right border-l-2 md:border-l-0 md:border-r-2 border-acid/20 p-3 sm:p-4 md:py-0 md:pl-0 md:pr-6 space-y-2 select-text"
+                        className="md:col-span-3 font-mono text-[10px] sm:text-xs md:text-sm text-silver/60 text-left md:text-right md:border-r-2 md:border-acid/20 md:p-0 md:pr-6 space-y-2 select-text bg-silver/[0.02] border border-silver/5 md:border-none md:bg-transparent p-4 rounded-lg md:rounded-none relative overflow-hidden"
                     >
+                        {/* Decorative corner lines for mobile */}
+                        <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-acid/30 md:hidden" />
+                        <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-acid/30 md:hidden" />
+
                         <span className="text-acid font-bold text-[9px] tracking-wider block mb-1">
                             // CORE_STATEMENT
                         </span>
@@ -147,11 +155,11 @@ export default function Home() {
                             <h2 className="font-mono text-silver/40 text-[10px] tracking-[0.3em] uppercase">
                                 PROFILE // ONLINE
                             </h2>
-                            <div className="flex flex-col gap-3 sm:gap-6 leading-[0.85] text-center items-center w-full">
+                            <div className="flex flex-col gap-1 sm:gap-6 leading-[0.85] text-center items-center w-full">
                                 <ExplodingText text="DIPTISH" size="xl" className="font-space tracking-tighter" />
                                 
                                 {/* Rotating Typewriter Title Element in between DIPTISH and DE */}
-                                <div className="h-8 flex items-center justify-center py-6 select-none">
+                                <div className="h-6 flex items-center justify-center py-1 sm:py-6 select-none">
                                     <TypewriterTitle words={titles} />
                                 </div>
 
@@ -159,10 +167,13 @@ export default function Home() {
                             </div>
 
                             {/* Highly Prominent Console Prompt Message */}
-                            <div className="pt-6 pb-2 flex flex-col items-center select-none">
-                                <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-acid/15 border border-acid/40 text-acid text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.2em] shadow-[0_0_25px_rgba(215,255,47,0.25)] [text-shadow:0_0_8px_rgba(215,255,47,0.7)] animate-pulse text-center leading-relaxed">
+                            <div className="pt-4 pb-1 sm:pt-6 sm:pb-2 flex flex-col items-center select-none">
+                                <span 
+                                    onClick={() => setWhoamiOpen(true)}
+                                    className="cursor-pointer hover:bg-acid/25 transition-colors duration-200 inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-acid/15 border border-acid/40 text-acid text-[8px] sm:text-[10px] font-mono uppercase tracking-[0.1em] sm:tracking-[0.2em] shadow-[0_0_25px_rgba(215,255,47,0.25)] [text-shadow:0_0_8px_rgba(215,255,47,0.7)] animate-pulse text-center leading-relaxed"
+                                >
                                     <span className="w-1.5 h-1.5 rounded-full bg-acid [box-shadow:0_0_10px_#D7FF2F] shrink-0" />
-                                    Console Alert: Type &quot;whoami&quot; anywhere to launch secure shell terminal
+                                    Console Alert: Tap here or Type &quot;whoami&quot; to launch terminal
                                 </span>
                             </div>
                         </div>
@@ -173,8 +184,12 @@ export default function Home() {
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="md:col-span-3 font-mono text-[10px] sm:text-xs md:text-sm text-silver/60 text-left border-l-2 border-acid/20 p-3 sm:p-4 md:py-0 md:pr-0 md:pl-6 space-y-2 select-text"
+                        className="md:col-span-3 font-mono text-[10px] sm:text-xs md:text-sm text-silver/60 text-left md:border-l-2 md:border-acid/20 md:p-0 md:pl-6 space-y-2 select-text bg-silver/[0.02] border border-silver/5 md:border-none md:bg-transparent p-4 rounded-lg md:rounded-none relative overflow-hidden"
                     >
+                        {/* Decorative corner lines for mobile */}
+                        <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-acid/30 md:hidden" />
+                        <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-acid/30 md:hidden" />
+
                         <span className="text-acid font-bold text-[9px] tracking-wider block mb-1">
                             // ACTIVE_MISSIONS
                         </span>
