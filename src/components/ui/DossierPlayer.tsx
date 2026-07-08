@@ -11,6 +11,11 @@ interface Track {
 
 const playlist: Track[] = [
     {
+        title: "HAPPY_BIRTHDAY",
+        artist: "GUITAR_SYNTH // CLASSIC_TUNE",
+        url: "guitar:happy_birthday"
+    },
+    {
         title: "NEON_DREAM_01",
         artist: "AUDIO_STREAM // DIPTISH_DE",
         url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
@@ -32,15 +37,27 @@ export default function DossierPlayer() {
     const togglePlay = () => {
         if (!audioRef.current) return;
 
+        const isGuitar = activeTrack.url.startsWith("guitar:");
+
         if (isPlaying) {
-            audioRef.current.pause();
+            if (isGuitar) {
+                window.dispatchEvent(new CustomEvent("stop-guitar-tune"));
+            } else {
+                audioRef.current.pause();
+            }
             setIsPlaying(false);
         } else {
-            audioRef.current.play().then(() => {
+            if (isGuitar) {
+                const songName = activeTrack.url.split(":")[1];
+                window.dispatchEvent(new CustomEvent("play-guitar-tune", { detail: { song: songName } }));
                 setIsPlaying(true);
-            }).catch(err => {
-                console.warn("Audio playback deferred pending interaction", err);
-            });
+            } else {
+                audioRef.current.play().then(() => {
+                    setIsPlaying(true);
+                }).catch(err => {
+                    console.warn("Audio playback deferred pending interaction", err);
+                });
+            }
         }
     };
 
@@ -48,16 +65,31 @@ export default function DossierPlayer() {
         const nextIdx = (currentTrackIdx + 1) % playlist.length;
         setCurrentTrackIdx(nextIdx);
         setIsPlaying(false);
+        window.dispatchEvent(new CustomEvent("stop-guitar-tune"));
     };
 
     useEffect(() => {
         if (!audioRef.current) return;
-        audioRef.current.src = activeTrack.url;
-        audioRef.current.load();
-        if (isPlaying) {
-            audioRef.current.play().then(() => {
-                setIsPlaying(true);
-            }).catch(() => setIsPlaying(false));
+
+        const isGuitar = activeTrack.url.startsWith("guitar:");
+
+        if (isGuitar) {
+            audioRef.current.pause();
+            if (isPlaying) {
+                const songName = activeTrack.url.split(":")[1];
+                window.dispatchEvent(new CustomEvent("play-guitar-tune", { detail: { song: songName } }));
+            } else {
+                window.dispatchEvent(new CustomEvent("stop-guitar-tune"));
+            }
+        } else {
+            window.dispatchEvent(new CustomEvent("stop-guitar-tune"));
+            audioRef.current.src = activeTrack.url;
+            audioRef.current.load();
+            if (isPlaying) {
+                audioRef.current.play().then(() => {
+                    setIsPlaying(true);
+                }).catch(() => setIsPlaying(false));
+            }
         }
     }, [currentTrackIdx, activeTrack.url, isPlaying]);
 

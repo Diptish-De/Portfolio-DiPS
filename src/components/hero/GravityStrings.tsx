@@ -57,8 +57,6 @@ export default function GravityStrings() {
 
     // Canvas + String Physics + Audio Synth
     useEffect(() => {
-        if (typeof window !== "undefined" && window.innerWidth < 768) return;
-
         const canvas = canvasRef.current;
         if (!canvas) return;
 
@@ -81,6 +79,27 @@ export default function GravityStrings() {
             220.00, 261.63, 293.66, 329.63, 392.00,
             440.00, 523.25, 587.33, 659.25, 783.99,
         ];
+
+        // Theme Songs Note Definitions
+        const TUNES: Record<string, { str: number; delay: number }[]> = {
+            happy_birthday: [
+                // Happy Birthday to You
+                { str: 6, delay: 0 }, { str: 6, delay: 250 }, { str: 7, delay: 500 }, { str: 6, delay: 1000 },
+                { str: 8, delay: 1500 }, { str: 8, delay: 2000 },
+                // Happy Birthday to You
+                { str: 6, delay: 3000 }, { str: 6, delay: 3250 }, { str: 7, delay: 3500 }, { str: 6, delay: 4000 },
+                { str: 9, delay: 4500 }, { str: 8, delay: 5000 },
+                // Happy Birthday Dear [Name]
+                { str: 6, delay: 6000 }, { str: 6, delay: 6250 }, { str: 11, delay: 6500 }, { str: 10, delay: 7250 },
+                { str: 8, delay: 7750 }, { str: 8, delay: 8250 }, { str: 7, delay: 8750 },
+                // Happy Birthday to You
+                { str: 10, delay: 9500 }, { str: 10, delay: 9750 }, { str: 10, delay: 10000 }, { str: 8, delay: 10500 },
+                { str: 9, delay: 11000 }, { str: 8, delay: 11500 }
+            ]
+        };
+
+        let activeTimers: NodeJS.Timeout[] = [];
+        let activeInterval: NodeJS.Timeout | null = null;
 
         // Pre-create AudioContext (will be in 'suspended' state until user gesture)
         if (!audioContextRef.current) {
@@ -200,6 +219,49 @@ export default function GravityStrings() {
             }
         };
 
+        const playTune = (tuneName: string) => {
+            stopTune();
+            const notes = TUNES[tuneName];
+            if (!notes) return;
+
+            const playSequence = () => {
+                notes.forEach(note => {
+                    const timer = setTimeout(() => {
+                        const str = strings[note.str];
+                        if (str) {
+                            str.velX = (Math.random() > 0.5 ? 1 : -1) * 35;
+                            str.y = height / 2 + (Math.random() - 0.5) * 80;
+                            playStringSound(note.str, 12);
+                        }
+                    }, note.delay);
+                    activeTimers.push(timer);
+                });
+            };
+
+            const duration = notes.reduce((max, n) => Math.max(max, n.delay), 0) + 800;
+            playSequence();
+            activeInterval = setInterval(playSequence, duration);
+        };
+
+        const stopTune = () => {
+            activeTimers.forEach(clearTimeout);
+            activeTimers = [];
+            if (activeInterval) {
+                clearInterval(activeInterval);
+                activeInterval = null;
+            }
+        };
+
+        const handlePlayEvent = (e: Event) => {
+            const songName = (e as CustomEvent).detail?.song;
+            if (songName) {
+                playTune(songName);
+            }
+        };
+
+        window.addEventListener("play-guitar-tune", handlePlayEvent);
+        window.addEventListener("stop-guitar-tune", stopTune);
+
         const onMouseMove = (e: MouseEvent) => {
             const rect = canvas.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -239,6 +301,9 @@ export default function GravityStrings() {
         return () => {
             window.removeEventListener("resize", onResize);
             window.removeEventListener("mousemove", onMouseMove);
+            window.removeEventListener("play-guitar-tune", handlePlayEvent);
+            window.removeEventListener("stop-guitar-tune", stopTune);
+            stopTune();
             cancelAnimationFrame(animationFrameId);
             if (audioContextRef.current) {
                 audioContextRef.current.close();
@@ -251,7 +316,7 @@ export default function GravityStrings() {
         <>
             <canvas
                 ref={canvasRef}
-                className="absolute inset-0 z-0 pointer-events-none hidden md:block"
+                className="absolute inset-0 z-0 pointer-events-none"
                 style={{ width: '100%', height: '100%' }}
             />
             <div className="absolute bottom-10 left-10 font-mono text-[10px] select-none pointer-events-none flex flex-col gap-1 hidden md:flex">
