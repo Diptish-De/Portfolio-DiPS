@@ -39,8 +39,8 @@ function DecryptText({ text, startTrigger = false }: { text: string; startTrigge
                 clearInterval(interval);
             }
             
-            iteration += 1 / 2; // Scramble speed
-        }, 25);
+            iteration += 1.8; // Scramble speed (faster decryption)
+        }, 12); // Reduced interval for faster scramble
         
         return () => clearInterval(interval);
     }, [text, startTrigger]);
@@ -165,8 +165,20 @@ function TimelineCard({ step, isEven }: { step: OriginStep; isEven: boolean }) {
         <div className={`flex flex-col md:flex-row gap-8 items-start relative ${
             isEven ? "md:flex-row-reverse" : ""
         }`}>
-            {/* Center Node with glowing rings */}
-            <div className="absolute left-6 md:left-1/2 top-6 md:top-1.5 -translate-x-1/2 z-20 flex items-center justify-center w-6 h-6">
+            {/* Center Node with rotating reticles and glowing rings */}
+            <div className="absolute left-6 md:left-1/2 top-6 md:top-1.5 -translate-x-1/2 z-20 flex items-center justify-center w-8 h-8">
+                {/* Outer rotating dashed reticle */}
+                <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
+                    className="absolute w-7 h-7 border border-dashed border-acid/30 rounded-full"
+                />
+                {/* Inner rotating dotted reticle */}
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                    className="absolute w-5 h-5 border border-dotted border-acid/55 rounded-full"
+                />
                 <motion.div
                     initial={{ scale: 0.8, opacity: 0, rotate: 45 }}
                     whileInView={{ scale: [1, 2.2], opacity: [0.5, 0], rotate: 45 }}
