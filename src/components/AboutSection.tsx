@@ -203,6 +203,10 @@ export default function AboutSection() {
                                         <span className="text-acid/40 mr-2">&gt;</span>
                                         Shipping earns <span className="text-white font-bold">experience.</span>
                                     </p>
+                                    <p className="hover:text-white transition-colors duration-300">
+                                        <span className="text-acid/40 mr-2">&gt;</span>
+                                        Startups turn code into <span className="text-white font-bold">real-world impact.</span>
+                                    </p>
                                     <p className="text-acid hover:text-white transition-colors duration-300">
                                         <span className="text-acid/40 mr-2">&gt;</span>
                                         Repeat.

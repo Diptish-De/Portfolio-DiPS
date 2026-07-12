@@ -145,7 +145,7 @@ export default function Home() {
                             // CORE_STATEMENT
                         </span>
                         <p className="leading-relaxed">
-                            I design interfaces, engineer products, and build communities around ideas.
+                            I engineer real startups and products, blending technical architecture with vector design to launch high-utility systems.
                         </p>
                     </motion.div>
 

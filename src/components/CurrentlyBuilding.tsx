@@ -84,12 +84,15 @@ export default function CurrentlyBuilding() {
                     <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
 
                     {/* Section Header */}
-                    <div className="container mx-auto px-16 max-w-7xl mb-12 relative z-10 flex items-end justify-between select-none">
-                        <div className="flex flex-col gap-2">
-                            <span className="text-acid font-mono text-xs tracking-[0.3em]">// MISSION_DATABASE</span>
+                    <div className="container mx-auto px-16 max-w-7xl mb-12 relative z-10 flex flex-col md:flex-row md:items-end justify-between select-none gap-4">
+                        <div className="flex flex-col gap-2 max-w-xl">
+                            <span className="text-acid font-mono text-xs tracking-[0.3em]">// MISSION_DATABASE // CORE_IDENTITIES</span>
                             <h2 className="text-4xl md:text-5xl font-space font-black tracking-tight uppercase text-white">
                                 CURRENTLY BUILDING
                             </h2>
+                            <p className="font-mono text-[10px] text-silver/50 leading-relaxed uppercase tracking-wider mt-1">
+                                These active startups and platforms are my core execution focus: translating complex logic into real products.
+                            </p>
                         </div>
                         <span className="font-mono text-[10px] text-silver/30 animate-pulse uppercase tracking-wider mb-2">
                             [ SCROLL DOWN TO HORIZONTALLY TRANSIT DATABASE ▼ ]
@@ -102,7 +105,7 @@ export default function CurrentlyBuilding() {
                             {ventures.map((venture) => (
                                 <div
                                     key={venture.id}
-                                    className="group w-[380px] h-[340px] bg-black/60 border border-silver/10 hover:border-acid/30 transition-all duration-300 p-8 flex flex-col justify-between relative shadow-[0_4px_30px_rgba(0,0,0,0.4)] backdrop-blur-sm"
+                                    className="group w-[380px] h-[340px] bg-black/60 border border-silver/10 hover:border-acid/40 hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(215,255,47,0.12)] hover:bg-[#060606] transition-all duration-500 p-8 flex flex-col justify-between relative shadow-[0_4px_30px_rgba(0,0,0,0.4)] backdrop-blur-sm"
                                 >
                                     {/* Tech Corner Details */}
                                     <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-acid/40 group-hover:border-acid transition-colors" />
@@ -116,6 +119,10 @@ export default function CurrentlyBuilding() {
                                             [{venture.id}]
                                         </span>
                                         <div className="flex items-center gap-2">
+                                            <span className="relative flex h-1.5 w-1.5">
+                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-acid opacity-75"></span>
+                                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-acid"></span>
+                                            </span>
                                             <span className="font-mono text-[9px] text-silver/40 tracking-wider">
                                                 SYS_STATUS: {venture.statusText}
                                             </span>
@@ -160,10 +167,13 @@ export default function CurrentlyBuilding() {
                 <div className="container mx-auto">
                     {/* Header */}
                     <div className="mb-12 flex flex-col gap-2 select-none">
-                        <span className="text-acid font-mono text-xs tracking-[0.3em]">// MISSION_DATABASE</span>
+                        <span className="text-acid font-mono text-xs tracking-[0.3em]">// MISSION_DATABASE // CORE_IDENTITIES</span>
                         <h2 className="text-3xl font-space font-black tracking-tight uppercase text-white">
                             CURRENTLY BUILDING
                         </h2>
+                        <p className="font-mono text-[9px] text-silver/50 leading-relaxed uppercase tracking-wider mt-1">
+                            These active startups and platforms are my core execution focus: translating complex logic into real products.
+                        </p>
                     </div>
 
                     {/* Horizontally Scrollable Swipe Carousel for Small Screens */}
@@ -177,9 +187,15 @@ export default function CurrentlyBuilding() {
                                     <span className="font-mono text-xs text-silver/30 font-bold">
                                         [{venture.id}]
                                     </span>
-                                    <span className="font-mono text-[9px] text-silver/40 tracking-wider">
-                                        SYS_STATUS: {venture.statusText}
-                                    </span>
+                                    <div className="flex items-center gap-1.5">
+                                        <span className="relative flex h-1.5 w-1.5">
+                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-acid opacity-75"></span>
+                                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-acid"></span>
+                                        </span>
+                                        <span className="font-mono text-[9px] text-silver/40 tracking-wider">
+                                            SYS_STATUS: {venture.statusText}
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div className="space-y-2 mb-6">

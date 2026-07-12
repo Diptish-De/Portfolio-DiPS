@@ -53,7 +53,7 @@ export default function ProjectsSection() {
     const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
 
     return (
-        <section ref={targetRef} className="relative h-[300vh] bg-neutral-900 border-y border-silver/10">
+        <section ref={targetRef} className="relative h-[300vh] bg-[#050505] border-y border-silver/10">
             <div className="sticky top-0 flex h-screen items-center overflow-hidden">
 
                 {/* Section Header */}
