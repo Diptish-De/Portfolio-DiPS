@@ -194,7 +194,7 @@ export default function Home() {
                             // ACTIVE_MISSIONS
                         </span>
                         <p className="leading-relaxed text-silver/50">
-                            Currently building <span className="text-white font-bold">EXIMARG</span> & <span className="text-white font-bold">BlueBloodExports (CTO)</span>, organizing <span className="text-white font-bold">DropoutHacks</span>, and shipping whatever refuses to leave my head.
+                            Currently building <span className="text-white font-bold">EXIMARG (Co-Founder)</span> & <span className="text-white font-bold">BlueBloodExports (CTO)</span>, organizing <span className="text-white font-bold">DropoutHacks</span>, and shipping whatever refuses to leave my head.
                         </p>
                     </motion.div>
                 </div>
