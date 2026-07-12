@@ -18,8 +18,8 @@ const ventures: Venture[] = [
     {
         id: "01",
         title: "EXIMARG",
-        description: "Making international trade less painful with AI, automating cargo logistics.",
-        statusText: "DEVELOPING",
+        description: "Co-founder managing technical infrastructure, from configuring secure mail servers to building core web applications.",
+        statusText: "CO-FOUNDER // TECH",
         progress: 3.1,
         link: "/coming-soon?project=eximarg",
         icon: <Cpu className="w-5 h-5 text-acid" />
