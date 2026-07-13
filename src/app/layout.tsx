@@ -21,7 +21,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Diptish De | Full Stack Engineer",
+  title: "Diptish De | Product Builder",
   description: "Citizen of the Metaverse. Building fast, shipping often.",
 };
 

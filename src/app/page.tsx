@@ -116,8 +116,9 @@ export default function Home() {
                 <GravityStrings />
 
                 {/* Top Left System Info */}
-                <div className="absolute top-4 left-4 right-4 sm:right-auto flex items-center justify-between sm:justify-start gap-2 font-mono text-[9px] sm:text-[10px] text-silver/40">
+                <div className="absolute top-4 left-4 right-4 sm:right-auto flex items-center justify-between sm:justify-start gap-3 font-mono text-[9px] sm:text-[10px] text-silver/40">
                     <div className="flex items-center gap-2">
+                        <img src="/logo_d.png" alt="D Logo" className="w-3.5 h-3.5 object-contain rounded-sm" />
                         <span className="w-1.5 h-1.5 rounded-full bg-acid animate-pulse shadow-[0_0_8px_#D7FF2F]" />
                         <span>DiPS_MAINFRAME // SYS_ONLINE</span>
                     </div>
